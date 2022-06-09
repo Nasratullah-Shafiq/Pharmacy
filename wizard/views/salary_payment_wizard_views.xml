@@ -1,0 +1,52 @@
+<odoo>
+    <record id="view_salary_payment_report_wizard" model="ir.ui.view">
+        <field name="name">salary.payment.wizard.form</field>
+        <field name="model">salary.payment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Salary Payment Report">
+                <group>
+                    <field name="branch_id"/>
+                    <field name="farm_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </group>
+
+                <group string="Summary">
+                    <field name="total_paid_amount" readonly="1"/>
+                </group>
+
+                <group string="Salary Payment Details">
+                    <field name="salary_lines" string = "" readonly="1">
+                        <tree>
+<!--                            <field name="salary_date"/>-->
+                            <field name="month_year" string="Month"/>
+                            <field name="employee_id"/>
+                            <field name="branch_id"/>
+                            <field name="farm_id"/>
+                            <field name="amount"/>
+                        </tree>
+                    </field>
+                </group>
+
+                <footer>
+                    <button name="generate_report" string="Generate Report" type="object" class="btn-primary"/>
+                    <button name="print_pdf_report" string="Print PDF" type="object" class="btn-secondary"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_salary_payment_report_wizard" model="ir.actions.act_window">
+        <field name="name">Salary Payment Report</field>
+        <field name="res_model">salary.payment.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_salary_payment_report"
+              name="Salary Payment Report"
+              parent="menu_finance_reports"
+              action="action_salary_payment_report_wizard"
+              sequence="25"/>
+</odoo>
