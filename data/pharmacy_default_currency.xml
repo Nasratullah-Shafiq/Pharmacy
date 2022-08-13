@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- Afghani -->
+        <record id="currency_afn" model="res.currency">
+            <field name="name">Afghani</field>
+            <field name="active">True</field>
+            <field name="symbol">AFN</field>
+            <field name="position">before</field>
+            <field name="rounding">0.01</field>
+        </record>
+
+        <!-- Kaldar -->
+        <record id="currency_kld" model="res.currency">
+            <field name="name">Kaldar</field>
+            <field name="active">True</field>
+            <field name="symbol">KLD</field>
+            <field name="position">before</field>
+            <field name="rounding">0.01</field>
+        </record>
+
+    </data>
+</odoo>
