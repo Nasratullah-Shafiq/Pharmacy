@@ -243,9 +243,11 @@ class PharmacyPayment(models.Model):
     to_cashier_id = fields.Many2one('pharmacy.cashier', string="To Cashier")
     to_account_balance = fields.Float(string="Account Balance", related='to_account_id.balance', readonly=True,
                                       store=True)
-    to_account_type = fields.Selection(
-        [('main', 'Main'), ('marco', 'Marco'), ('bagram', 'Bagram'), ('cashier', 'Cashier')],
-        string="Account Type", required=True)
+
+    to_account_type = fields.Selection([
+        ('main', 'Main Account'),
+        ('cashier', 'Cashier Account'),
+    ], string="Account Type", required=True, tracking=True)
 
     payment_status = fields.Selection([('new', 'New Payment'),('done', 'Payment Done')], default='new', tracking=True )
     currency_id = fields.Many2one(
