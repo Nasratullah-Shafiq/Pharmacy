@@ -1,0 +1,99 @@
+<odoo>
+    <template id="report_cash_account_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+
+                    <!-- Header -->
+                    <div style="text-align:center; border-bottom:2px solid #2E86C1; padding-bottom:10px;">
+                        <h1 style="color:#2E86C1; margin:0;">Cash Account Report</h1>
+                        <p style="margin:0; font-size:14px;">Deposit Summary by Account Type</p>
+                    </div>
+
+                    <!-- Account Type -->
+                    <div style="margin-top:15px; font-size:14px;">
+                        <p>
+                            <strong>Account Type:</strong>
+                            <t t-esc="o.account_type"/>
+                        </p>
+                    </div>
+
+                    <!-- Deposit Details Table -->
+                    <table style="width:100%; border-collapse:collapse; margin-top:15px; font-size:13px;">
+                        <thead>
+                            <tr style="background-color:#f5f5f5; border:1px solid #ddd;">
+                                <th style="padding:6px; border:1px solid #ddd;">Date</th>
+                                <th style="padding:6px; border:1px solid #ddd;">Account No</th>
+                                <th style="padding:6px; border:1px solid #ddd;">Account Type</th>
+                                <th style="padding:6px; border:1px solid #ddd;">Currency</th>
+                                <th style="padding:6px; border:1px solid #ddd; text-align:right;">Amount</th>
+                                <th style="padding:6px; border:1px solid #ddd;">Deposited By</th>
+                                <th style="padding:6px; border:1px solid #ddd;">Note</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.deposit_lines" t-as="line">
+                                <tr>
+                                    <td style="padding:6px; border:1px solid #ddd;">
+                                        <t t-esc="line.date"/>
+                                    </td>
+                                    <td style="padding:6px; border:1px solid #ddd;">
+                                        <t t-esc="line.account_no"/>
+                                    </td>
+                                    <td style="padding:6px; border:1px solid #ddd;">
+                                        <t t-esc="line.account_type"/>
+                                    </td>
+                                    <td style="padding:6px; border:1px solid #ddd;">
+                                        <t t-esc="line.currency_type"/>
+                                    </td>
+                                    <td style="padding:6px; border:1px solid #ddd; text-align:right;">
+                                        <t t-esc="line.amount"/>
+                                    </td>
+                                    <td style="padding:6px; border:1px solid #ddd;">
+                                        <t t-esc="line.user_id.name if line.user_id else ''"/>
+                                    </td>
+                                    <td style="padding:6px; border:1px solid #ddd;">
+                                        <t t-esc="line.note or ''"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <!-- Summary Totals -->
+                    <div style="margin-top:20px; width:30%;">
+                        <table style="width:100%; border-collapse:collapse; font-size:14px;">
+                            <tr>
+                                <td style="padding:6px; border:1px solid #ddd;">Total AFN</td>
+                                <td style="padding:6px; border:1px solid #ddd; text-align:right;">
+                                    <t t-esc="o.total_afn"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:6px; border:1px solid #ddd;">Total USD</td>
+                                <td style="padding:6px; border:1px solid #ddd; text-align:right;">
+                                    <t t-esc="o.total_usd"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:6px; border:1px solid #ddd;">Total Kaldar</td>
+                                <td style="padding:6px; border:1px solid #ddd; text-align:right;">
+                                    <t t-esc="o.total_kaldar"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- Footer -->
+                    <div style="margin-top:30px; text-align:center; font-size:12px; color:#888;">
+                        Generated on
+                        <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')"/>
+                        <br/>
+                        Powered by Pharmacy Management System
+                    </div>
+
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
