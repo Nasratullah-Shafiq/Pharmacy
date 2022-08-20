@@ -1,0 +1,484 @@
+
+<!--<odoo>-->
+<!--    <template id="report_poultry_finance_template">-->
+<!--        <t t-call="web.html_container">-->
+<!--            <t t-foreach="docs" t-as="o">-->
+<!--                <div class="page">-->
+
+<!--                    &lt;!&ndash; Header &ndash;&gt;-->
+<!--                    <div style="text-align:center; border-bottom:2px solid #4CAF50; padding-bottom:10px; margin-bottom:20px;">-->
+<!--                        <h1 style="color:#4CAF50; font-size:28px; margin:0;">-->
+<!--                            Poultry Finance Report-->
+<!--                        </h1>-->
+<!--                        <p style="font-size:14px; color:#555; margin-top:5px;">-->
+<!--                            Comprehensive Finance Summary-->
+<!--                        </p>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Filters &ndash;&gt;-->
+<!--                    <div style="margin-bottom:20px; font-size:14px; color:#333;">-->
+<!--                        <p>-->
+<!--                            <strong>From:</strong> <t t-esc="o.start_date"/>-->
+<!--                            &#160;&#160;-->
+<!--                            <strong>To:</strong> <t t-esc="o.end_date"/>-->
+<!--                        </p>-->
+<!--                        <p>-->
+<!--                            <strong>Branch:</strong> <t t-esc="o.branch_id.name if o.branch_id else 'All Branches'"/>-->
+<!--                        </p>-->
+<!--                        <p>-->
+<!--                            <strong>Farm:</strong> <t t-esc="o.farm_id.name if o.farm_id else 'All Farms'"/>-->
+<!--                        </p>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Finance Table &ndash;&gt;-->
+<!--                    <table style="width:100%; border-collapse:collapse; font-size:14px; margin-top:10px;">-->
+
+<!--                        &lt;!&ndash; Income Section &ndash;&gt;-->
+<!--                        <tr style="background:#e8f5e9;">-->
+<!--                            <th colspan="2" style="padding:10px; text-align:left; font-size:15px;">Income</th>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td style="padding:8px; border:1px solid #ddd;">Total Sales</td>-->
+<!--                            <td style="padding:8px; border:1px solid #ddd; text-align:right;"><t t-esc="o.total_sales"/></td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td style="padding:8px; border:1px solid #ddd;">Net Income</td>-->
+<!--                            <td style="padding:8px; border:1px solid #ddd; text-align:right;"><t t-esc="o.total_income"/></td>-->
+<!--                        </tr>-->
+
+<!--                        &lt;!&ndash; Expenses Section &ndash;&gt;-->
+<!--                        <tr style="background:#ffebee;">-->
+<!--                            <th colspan="2" style="padding:10px; text-align:left; font-size:15px;">Expenses</th>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td style="padding:8px; border:1px solid #ddd;">Total Purchases</td>-->
+<!--                            <td style="padding:8px; border:1px solid #ddd; text-align:right;"><t t-esc="o.total_purchases"/></td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td style="padding:8px; border:1px solid #ddd;">Total Salaries</td>-->
+<!--                            <td style="padding:8px; border:1px solid #ddd; text-align:right;"><t t-esc="o.total_salaries"/></td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td style="padding:8px; border:1px solid #ddd;">Other Expenses</td>-->
+<!--                            <td style="padding:8px; border:1px solid #ddd; text-align:right;"><t t-esc="o.total_expenses"/></td>-->
+<!--                        </tr>-->
+
+<!--                        &lt;!&ndash; Expense Breakdown by Type &ndash;&gt;-->
+<!--                        <tr style="background:#f5f5f5;">-->
+<!--                            <th style="padding:8px; border:1px solid #ddd;">Expense Type</th>-->
+<!--                            <th style="padding:8px; border:1px solid #ddd; text-align:right;">Amount</th>-->
+<!--                        </tr>-->
+<!--                        <t t-set="lines" t-value="o.get_expense_breakdown()"/>-->
+<!--                        <t t-if="lines">-->
+<!--                            <t t-foreach="lines" t-as="l">-->
+<!--                                <tr>-->
+<!--                                    <td style="padding:8px; border:1px solid #ddd;"><t t-esc="l['type']"/></td>-->
+<!--                                    <td style="padding:8px; border:1px solid #ddd; text-align:right;"><t t-esc="l['amount']"/></td>-->
+<!--                                </tr>-->
+<!--                            </t>-->
+<!--                        </t>-->
+<!--                        <t t-if="not lines">-->
+<!--                            <tr>-->
+<!--                                <td colspan="2" style="padding:8px; border:1px solid #ddd;">No expenses recorded</td>-->
+<!--                            </tr>-->
+<!--                        </t>-->
+
+<!--                        &lt;!&ndash; Net Profit &ndash;&gt;-->
+<!--                        <tr style="background:#d9f7be;">-->
+<!--                            <th style="padding:10px; text-align:left;">Net Profit</th>-->
+<!--                            <th style="padding:10px; text-align:right;"><t t-esc="o.net_profit"/></th>-->
+<!--                        </tr>-->
+
+<!--                    </table>-->
+
+<!--                    &lt;!&ndash; Footer &ndash;&gt;-->
+<!--                    <div style="margin-top:25px; text-align:center; color:#888; font-size:12px;">-->
+<!--                        <p>Generated on <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')"/></p>-->
+<!--                        <p>Powered by Poultry Farm Management System</p>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+<!--            </t>-->
+<!--        </t>-->
+<!--    </template>-->
+<!--</odoo>-->
+
+<!--<odoo>-->
+<!--    <template id="report_poultry_finance_template">-->
+<!--        <t t-call="web.html_container">-->
+<!--            <t t-foreach="docs" t-as="o">-->
+<!--                <div class="page">-->
+
+<!--                    &lt;!&ndash; Header &ndash;&gt;-->
+<!--                    <div style="text-align:center; border-bottom:2px solid #4CAF50; padding-bottom:10px; margin-bottom:20px;">-->
+<!--                        <h1 style="color:#4CAF50; font-size:28px; margin:0;">-->
+<!--                            Poultry Finance Report-->
+<!--                        </h1>-->
+<!--                        <p style="font-size:14px; color:#555; margin-top:5px;">-->
+<!--                            Comprehensive Finance Summary-->
+<!--                        </p>-->
+<!--                    </div>-->
+
+<!--                    &lt;!&ndash; Filters &ndash;&gt;-->
+<!--                    <div style="margin-bottom:20px; font-size:14px; color:#333;">-->
+<!--                        <p>-->
+<!--                            <strong>From:</strong> <t t-esc="o.start_date"/>-->
+<!--                            &#160;&#160;-->
+<!--                            <strong>To:</strong> <t t-esc="o.end_date"/>-->
+<!--                        </p>-->
+<!--                        <p>-->
+<!--                            <strong>Branch:</strong> <t t-esc="o.branch_id.name if o.branch_id else 'All Branches'"/>-->
+<!--                        </p>-->
+<!--                        <p>-->
+<!--                            <strong>Farm:</strong> <t t-esc="o.farm_id.name if o.farm_id else 'All Farms'"/>-->
+<!--                        </p>-->
+<!--                    </div>-->
+
+<!--                    <table style="width:100%; border-collapse:collapse; font-size:14px; margin-top:10px;">-->
+
+<!--                        &lt;!&ndash; ================= SALES ================= &ndash;&gt;-->
+<!--                        <tr style="background:#e8f5e9;">-->
+<!--                            <th colspan="2" style="padding:10px; text-align:left;">Sales</th>-->
+<!--                        </tr>-->
+
+<!--                        <tr>-->
+<!--                            <td style="padding:8px; border:1px solid #ddd;">Total Sales</td>-->
+<!--                            <td style="padding:8px; border:1px solid #ddd; text-align:right;">-->
+<!--                                <t t-esc="o.total_sales"/>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+
+<!--                        &lt;!&ndash; Sales by Customer &ndash;&gt;-->
+<!--                        <tr style="background:#f5f5f5;">-->
+<!--                            <th style="padding:8px;">Customer</th>-->
+<!--                            <th style="padding:8px; text-align:right;">Sales Amount</th>-->
+<!--                        </tr>-->
+
+<!--                        <t t-set="sales_lines" t-value="o.get_sales_by_customer()"/>-->
+
+<!--                        <t t-foreach="sales_lines" t-as="s">-->
+<!--                            <tr>-->
+<!--                                <td style="padding:8px; border:1px solid #ddd;">-->
+<!--                                    <t t-esc="s['customer']"/>-->
+<!--                                </td>-->
+<!--                                <td style="padding:8px; border:1px solid #ddd; text-align:right;">-->
+<!--                                    <t t-esc="s['amount']"/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                        </t>-->
+
+<!--                        &lt;!&ndash; ================= PURCHASES ================= &ndash;&gt;-->
+<!--                        <tr style="background:#ffebee;">-->
+<!--                            <th colspan="2" style="padding:10px; text-align:left;">Purchases</th>-->
+<!--                        </tr>-->
+
+<!--                        <tr>-->
+<!--                            <td style="padding:8px; border:1px solid #ddd;">Total Purchases</td>-->
+<!--                            <td style="padding:8px; border:1px solid #ddd; text-align:right;">-->
+<!--                                <t t-esc="o.total_purchases"/>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+
+<!--                        &lt;!&ndash; Purchases by Supplier &ndash;&gt;-->
+<!--                        <tr style="background:#f5f5f5;">-->
+<!--                            <th style="padding:8px;">Supplier</th>-->
+<!--                            <th style="padding:8px; text-align:right;">Purchase Amount</th>-->
+<!--                        </tr>-->
+
+<!--                        <t t-set="purchase_lines" t-value="o.get_purchase_by_supplier()"/>-->
+
+<!--                        <t t-foreach="purchase_lines" t-as="p">-->
+<!--                            <tr>-->
+<!--                                <td style="padding:8px; border:1px solid #ddd;">-->
+<!--                                    <t t-esc="p['supplier']"/>-->
+<!--                                </td>-->
+<!--                                <td style="padding:8px; border:1px solid #ddd; text-align:right;">-->
+<!--                                    <t t-esc="p['amount']"/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                        </t>-->
+
+<!--                        &lt;!&ndash; ================= SALARIES ================= &ndash;&gt;-->
+<!--                        <tr style="background:#e3f2fd;">-->
+<!--                            <th colspan="2" style="padding:10px; text-align:left;">Salaries</th>-->
+<!--                        </tr>-->
+
+<!--                        <tr>-->
+<!--                            <td style="padding:8px; border:1px solid #ddd;">Total Salaries</td>-->
+<!--                            <td style="padding:8px; border:1px solid #ddd; text-align:right;">-->
+<!--                                <t t-esc="o.total_salaries"/>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+
+<!--                        &lt;!&ndash; Salary by Employee &ndash;&gt;-->
+<!--                        <tr style="background:#f5f5f5;">-->
+<!--                            <th style="padding:8px;">Employee</th>-->
+<!--                            <th style="padding:8px; text-align:right;">Salary Paid</th>-->
+<!--                        </tr>-->
+
+<!--                        <t t-set="salary_lines" t-value="o.get_salary_by_employee()"/>-->
+
+<!--                        <t t-foreach="salary_lines" t-as="e">-->
+<!--                            <tr>-->
+<!--                                <td style="padding:8px; border:1px solid #ddd;">-->
+<!--                                    <t t-esc="e['employee']"/>-->
+<!--                                </td>-->
+<!--                                <td style="padding:8px; border:1px solid #ddd; text-align:right;">-->
+<!--                                    <t t-esc="e['amount']"/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                        </t>-->
+
+<!--                        &lt;!&ndash; ================= EXPENSES ================= &ndash;&gt;-->
+<!--                        <tr style="background:#fff3e0;">-->
+<!--                            <th colspan="2" style="padding:10px; text-align:left;">Other Expenses</th>-->
+<!--                        </tr>-->
+
+<!--                        <tr>-->
+<!--                            <td style="padding:8px; border:1px solid #ddd;">Total Expenses</td>-->
+<!--                            <td style="padding:8px; border:1px solid #ddd; text-align:right;">-->
+<!--                                <t t-esc="o.total_expenses"/>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+
+<!--                        &lt;!&ndash; Expense Breakdown &ndash;&gt;-->
+<!--                        <tr style="background:#f5f5f5;">-->
+<!--                            <th style="padding:8px;">Expense Type</th>-->
+<!--                            <th style="padding:8px; text-align:right;">Amount</th>-->
+<!--                        </tr>-->
+
+<!--                        <t t-set="lines" t-value="o.get_expense_breakdown()"/>-->
+
+<!--                        <t t-foreach="lines" t-as="l">-->
+<!--                            <tr>-->
+<!--                                <td style="padding:8px; border:1px solid #ddd;">-->
+<!--                                    <t t-esc="l['type']"/>-->
+<!--                                </td>-->
+<!--                                <td style="padding:8px; border:1px solid #ddd; text-align:right;">-->
+<!--                                    <t t-esc="l['amount']"/>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                        </t>-->
+
+<!--                        &lt;!&ndash; ================= NET PROFIT ================= &ndash;&gt;-->
+<!--                        <tr style="background:#d9f7be;">-->
+<!--                            <th style="padding:10px; text-align:left;">Net Profit</th>-->
+<!--                            <th style="padding:10px; text-align:right;">-->
+<!--                                <t t-esc="o.net_profit"/>-->
+<!--                            </th>-->
+<!--                        </tr>-->
+
+<!--                    </table>-->
+
+<!--                    &lt;!&ndash; Footer &ndash;&gt;-->
+<!--                    <div style="margin-top:25px; text-align:center; color:#888; font-size:12px;">-->
+<!--                        <p>-->
+<!--                            Generated on-->
+<!--                            <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')"/>-->
+<!--                        </p>-->
+<!--                        <p>Powered by Poultry Farm Management System</p>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+<!--            </t>-->
+<!--        </t>-->
+<!--    </template>-->
+<!--</odoo>-->
+
+<odoo>
+    <template id="report_poultry_finance_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+
+                    <!-- Header -->
+                    <div style="text-align:center; border-bottom:2px solid #4CAF50; padding-bottom:10px; margin-bottom:20px;">
+                        <h1 style="color:#4CAF50; font-size:28px; margin:0;">
+                            Poultry Finance Report
+                        </h1>
+                        <p style="font-size:14px; color:#555; margin-top:5px;">
+                            Comprehensive Finance Summary
+                        </p>
+                    </div>
+
+                    <!-- Filters -->
+                    <div style="margin-bottom:20px; font-size:14px; color:#333;">
+                        <p>
+                            <strong>From:</strong> <t t-esc="o.start_date"/>
+                            &#160;&#160;
+                            <strong>To:</strong> <t t-esc="o.end_date"/>
+                        </p>
+                        <p>
+                            <strong>Branch:</strong> <t t-esc="o.branch_id.name if o.branch_id else 'All Branches'"/>
+                        </p>
+                        <p>
+                            <strong>Farm:</strong> <t t-esc="o.farm_id.name if o.farm_id else 'All Farms'"/>
+                        </p>
+                    </div>
+
+                    <table style="width:100%; border-collapse:collapse; font-size:14px; margin-top:10px;">
+
+                        <!-- SALES -->
+                        <tr style="background:#e8f5e9;">
+                            <th colspan="2" style="padding:10px; text-align:left;">Sales</th>
+                        </tr>
+
+                        <tr>
+                            <td style="padding:8px; border:1px solid #ddd;">Total Sales</td>
+                            <td style="padding:8px; border:1px solid #ddd; text-align:right;">
+                                <t t-esc="o.total_sales"/>
+                            </td>
+                        </tr>
+
+                        <tr style="background:#f5f5f5;">
+                            <th style="padding:8px;">Customer</th>
+                            <th style="padding:8px; text-align:right;">Sales Amount</th>
+                        </tr>
+
+                        <t t-set="sales_lines" t-value="o.get_sales_by_customer()"/>
+
+                        <t t-foreach="sales_lines" t-as="s">
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;">
+                                    <t t-esc="s['customer']"/>
+                                </td>
+                                <td style="padding:8px; border:1px solid #ddd; text-align:right;">
+                                    <t t-esc="s['amount']"/>
+                                </td>
+                            </tr>
+                        </t>
+
+                        <!-- DIVIDER -->
+                        <tr><td colspan="2" style="height:15px;"></td></tr>
+                        <tr><td colspan="2" style="border-top:2px solid #bbb;"></td></tr>
+                        <tr><td colspan="2" style="height:15px;"></td></tr>
+
+                        <!-- PURCHASES -->
+                        <tr style="background:#ffebee;">
+                            <th colspan="2" style="padding:10px; text-align:left;">Purchases</th>
+                        </tr>
+
+                        <tr>
+                            <td style="padding:8px; border:1px solid #ddd;">Total Purchases</td>
+                            <td style="padding:8px; border:1px solid #ddd; text-align:right;">
+                                <t t-esc="o.total_purchases"/>
+                            </td>
+                        </tr>
+
+                        <tr style="background:#f5f5f5;">
+                            <th style="padding:8px;">Supplier</th>
+                            <th style="padding:8px; text-align:right;">Purchase Amount</th>
+                        </tr>
+
+                        <t t-set="purchase_lines" t-value="o.get_purchase_by_supplier()"/>
+
+                        <t t-foreach="purchase_lines" t-as="p">
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;">
+                                    <t t-esc="p['supplier']"/>
+                                </td>
+                                <td style="padding:8px; border:1px solid #ddd; text-align:right;">
+                                    <t t-esc="p['amount']"/>
+                                </td>
+                            </tr>
+                        </t>
+
+                        <!-- DIVIDER -->
+                        <tr><td colspan="2" style="height:15px;"></td></tr>
+                        <tr><td colspan="2" style="border-top:2px solid #bbb;"></td></tr>
+                        <tr><td colspan="2" style="height:15px;"></td></tr>
+
+                        <!-- SALARIES -->
+                        <tr style="background:#e3f2fd;">
+                            <th colspan="2" style="padding:10px; text-align:left;">Salaries</th>
+                        </tr>
+
+                        <tr>
+                            <td style="padding:8px; border:1px solid #ddd;">Total Salaries</td>
+                            <td style="padding:8px; border:1px solid #ddd; text-align:right;">
+                                <t t-esc="o.total_salaries"/>
+                            </td>
+                        </tr>
+
+                        <tr style="background:#f5f5f5;">
+                            <th style="padding:8px;">Employee</th>
+                            <th style="padding:8px; text-align:right;">Salary Paid</th>
+                        </tr>
+
+                        <t t-set="salary_lines" t-value="o.get_salary_by_employee()"/>
+
+                        <t t-foreach="salary_lines" t-as="e">
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;">
+                                    <t t-esc="e['employee']"/>
+                                </td>
+                                <td style="padding:8px; border:1px solid #ddd; text-align:right;">
+                                    <t t-esc="e['amount']"/>
+                                </td>
+                            </tr>
+                        </t>
+
+                        <!-- DIVIDER -->
+                        <tr><td colspan="2" style="height:15px;"></td></tr>
+                        <tr><td colspan="2" style="border-top:2px solid #bbb;"></td></tr>
+                        <tr><td colspan="2" style="height:15px;"></td></tr>
+
+                        <!-- EXPENSES -->
+                        <tr style="background:#fff3e0;">
+                            <th colspan="2" style="padding:10px; text-align:left;">Other Expenses</th>
+                        </tr>
+
+                        <tr>
+                            <td style="padding:8px; border:1px solid #ddd;">Total Expenses</td>
+                            <td style="padding:8px; border:1px solid #ddd; text-align:right;">
+                                <t t-esc="o.total_expenses"/>
+                            </td>
+                        </tr>
+
+                        <tr style="background:#f5f5f5;">
+                            <th style="padding:8px;">Expense Type</th>
+                            <th style="padding:8px; text-align:right;">Amount</th>
+                        </tr>
+
+                        <t t-set="lines" t-value="o.get_expense_breakdown()"/>
+
+                        <t t-foreach="lines" t-as="l">
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;">
+                                    <t t-esc="l['type']"/>
+                                </td>
+                                <td style="padding:8px; border:1px solid #ddd; text-align:right;">
+                                    <t t-esc="l['amount']"/>
+                                </td>
+                            </tr>
+                        </t>
+
+                        <!-- DIVIDER -->
+                        <tr><td colspan="2" style="height:15px;"></td></tr>
+                        <tr><td colspan="2" style="border-top:2px solid #bbb;"></td></tr>
+                        <tr><td colspan="2" style="height:15px;"></td></tr>
+
+                        <!-- NET PROFIT -->
+                        <tr style="background:#d9f7be;">
+                            <th style="padding:10px; text-align:left;">Net Profit</th>
+                            <th style="padding:10px; text-align:right;">
+                                <t t-esc="o.net_profit"/>
+                            </th>
+                        </tr>
+
+                    </table>
+
+                    <!-- Footer -->
+                    <div style="margin-top:25px; text-align:center; color:#888; font-size:12px;">
+                        <p>
+                            Generated on
+                            <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')"/>
+                        </p>
+                        <p>Powered by Poultry Farm Management System</p>
+                    </div>
+
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
