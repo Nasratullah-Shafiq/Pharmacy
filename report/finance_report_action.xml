@@ -1,0 +1,102 @@
+<odoo>
+    <!-- Report Action for Pharmacy Finance -->
+    <record id="action_pharmacy_finance_report" model="ir.actions.report">
+        <field name="name">Pharmacy Finance Report</field>
+        <field name="model">pharmacy.finance.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pharmacy.report_pharmacy_finance_template</field>
+        <field name="report_file">pharmacy.report_pharmacy_finance_template</field>
+        <field name="print_report_name">'Pharmacy Finance Report - %s' % (object.start_date)</field>
+    </record>
+
+
+    <!-- Report Action for Pharmacy Purchase -->
+    <record id="action_pharmacy_purchase_report" model="ir.actions.report">
+        <field name="name">Pharmacy Purchase Report</field>
+        <field name="model">pharmacy.purchase.report</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pharmacy.report_pharmacy_purchase_template</field>
+        <field name="report_file">pharmacy.report_pharmacy_purchase_template</field>
+        <field name="print_report_name">'Pharmacy Purchase Report - %s' % (object.start_date)</field>
+    </record>
+
+    <!-- Report Action for Pharmacy Sale -->
+    <record id="action_pharmacy_sale_report" model="ir.actions.report">
+        <field name="name">Pharmacy Sale Report</field>
+        <field name="model">pharmacy.sale.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pharmacy.report_pharmacy_sale_template</field>
+        <field name="report_file">pharmacy.report_pharmacy_sale_template</field>
+        <field name="print_report_name">'Pharmacy Sale Report - %s' % (object.start_date)</field>
+    </record>
+
+
+    <!-- Salary Payment Report Action -->
+    <record id="action_salary_payment_report" model="ir.actions.report">
+        <field name="name">Salary Payment Report</field>
+        <field name="model">salary.payment.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pharmacy.report_salary_payment_template</field>
+        <field name="report_file">pharmacy.report_salary_payment_template</field>
+        <field name="print_report_name">'Salary Payment Report - %s' % (object.start_date)</field>
+    </record>
+
+
+    <record id="action_expense_report" model="ir.actions.report">
+        <field name="name">Expense Report</field>
+        <field name="model">expense.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pharmacy.report_expense_template</field>
+        <field name="report_file">pharmacy.report_expense_template</field>
+        <field name="print_report_name">'Expense Report - %s' % (object.start_date or '')</field>
+    </record>
+
+
+    <!-- Report Template Definition -->
+    <record id="action_cash_deposit_report" model="ir.actions.report">
+        <field name="name">Cash Deposit Report</field>
+        <field name="model">cash.deposit.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pharmacy.report_cash_deposit_template</field>
+        <field name="report_file">pharmacy.report_cash_deposit_template</field>
+        <field name="binding_model_id" ref="model_cash_deposit_report_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+    <!-- Report Action -->
+    <record id="action_pharmacy_cash_account_report" model="ir.actions.report">
+        <field name="name">Cash Account Report</field>
+        <field name="model">pharmacy.cash.account.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pharmacy.report_cash_account_template</field>
+        <field name="report_file">pharmacy.report_cash_account_template</field>
+        <field name="print_report_name">'Cash Account Report - %s' % (object.id)</field>
+    </record>
+
+    <record id="action_customer_payment_report" model="ir.actions.report">
+        <field name="name">Customer Payment Report</field>
+        <field name="model">customer.payment.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pharmacy.report_customer_payment_template</field>
+        <field name="report_file">pharmacy.report_customer_payment_template</field>
+        <field name="binding_model_id" ref="model_customer_payment_report_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+    <record id="action_supplier_payment_report" model="ir.actions.report">
+        <field name="name">Supplier Payment Report</field>
+        <field name="model">supplier.payment.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">pharmacy.report_supplier_payment_template</field>
+        <field name="report_file">pharmacy.report_supplier_payment_template</field>
+        <field name="binding_model_id" ref="model_supplier_payment_report_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+
+
+</odoo>
+
+
+
