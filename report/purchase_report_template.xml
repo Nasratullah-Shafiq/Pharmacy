@@ -1,0 +1,118 @@
+<odoo>
+    <template id="report_pharmacy_purchase_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+
+                    <!-- Report Header -->
+                    <div style="text-align:center; border-bottom:2px solid #4CAF50; padding-bottom:10px; margin-bottom:15px;">
+                        <h1 style="color:#4CAF50; font-size:26px; margin:0;">
+                            Pharmacy Purchase Report
+                        </h1>
+                        <p style="font-size:14px; color:#555;">
+                            Detailed Record of All Purchases
+                        </p>
+                    </div>
+
+                    <!-- Report Date Range -->
+                    <div style="margin-bottom:15px; font-size:14px; color:#333;">
+                        <p>
+                            <strong>From:</strong>
+                            <span>
+                                <t t-esc="o.start_date"/>
+                            </span>
+
+                            <span style="margin-left:20px;"></span>
+
+                            <strong>To:</strong>
+                            <span>
+                                <t t-esc="o.end_date"/>
+                            </span>
+                        </p>
+                    </div>
+
+                    <!-- Purchase Details Table -->
+                    <h3 style="color:#4CAF50; border-bottom:1px solid #ddd; padding-bottom:5px; margin-top:20px;">
+                        Purchase Details
+                    </h3>
+
+                    <table style="width:100%; border-collapse:collapse; margin-top:10px; font-size:14px;">
+                        <thead>
+                            <tr style="background-color:#f5f5f5; border:1px solid #ddd;">
+                                <th style="padding:8px; border:1px solid #ddd;">Date</th>
+                                <th style="padding:8px; border:1px solid #ddd;">Type</th>
+                                <th style="padding:8px; border:1px solid #ddd;">Supplier</th>
+                                <th style="padding:8px; border:1px solid #ddd; text-align:right;">Quantity</th>
+                                <th style="padding:8px; border:1px solid #ddd; text-align:right;">Unit Price</th>
+                                <th style="padding:8px; border:1px solid #ddd; text-align:right;">Total</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <t t-foreach="o.purchase_lines" t-as="line">
+                                <tr>
+                                    <td style="padding:8px; border:1px solid #ddd;">
+                                        <t t-esc="line.date"/>
+                                    </td>
+                                    <td style="padding:8px; border:1px solid #ddd;">
+                                        <t t-esc="dict(line._fields['product_type'].selection).get(line.product_type, line.product_type)"/>
+                                    </td>
+                                    <td style="padding:8px; border:1px solid #ddd;">
+                                        <t t-esc="line.supplier_id.name if line.supplier_id else ''"/>
+                                    </td>
+                                    <td style="padding:8px; border:1px solid #ddd; text-align:right;">
+                                        <t t-esc="line.quantity"/>
+                                    </td>
+                                    <td style="padding:8px; border:1px solid #ddd; text-align:right;">
+                                        <t t-esc="line.unit_price"/>
+                                    </td>
+                                    <td style="padding:8px; border:1px solid #ddd; text-align:right;">
+                                        <t t-esc="line.total"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <!-- Summary Totals -->
+                    <h3 style="color:#4CAF50; border-top:1px solid #ddd; padding-top:10px; margin-top:20px;">
+                        Summary Totals
+                    </h3>
+
+                    <table style="width:40%; border-collapse:collapse; margin-top:10px; font-size:14px;">
+                        <tbody>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;">
+                                    Total Quantity
+                                </td>
+                                <td style="padding:8px; border:1px solid #ddd; text-align:right;">
+                                    <t t-esc="o.total_quantity"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;">
+                                    Total Amount
+                                </td>
+                                <td style="padding:8px; border:1px solid #ddd; text-align:right;">
+                                    <t t-esc="o.total_amount"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Footer -->
+                    <div style="margin-top:30px; text-align:center; color:#888; font-size:12px;">
+                        <p>
+                            Generated on
+                            <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')"/>
+                        </p>
+                        <p>
+                            Powered by Pharmacy Management System
+                        </p>
+                    </div>
+
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
