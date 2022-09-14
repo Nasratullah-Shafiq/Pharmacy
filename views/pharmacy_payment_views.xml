@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ========================================= -->
+    <!-- CUSTOMER PAYMENT TREE VIEW -->
+    <!-- ========================================= -->
+    <record id="view_pharmacy_payment_customer_tree" model="ir.ui.view">
+        <field name="name">pharmacy.payment.customer.tree</field>
+        <field name="model">pharmacy.payment</field>
+        <field name="arch" type="xml">
+            <tree string="Customer Payments" default_order="date desc">
+                <field name="date"/>
+                <field name="partner_id" string="Customer" domain="[('partner_type','=','customer')]"/>
+                <field name="amount"/>
+                <field name="total_amount"/>
+                <field name="amount_paid"/>
+                <field name="amount_due"/>
+                <field name="to_account_type"/>
+                <field name="to_account_id"/>
+                <field name="payment_status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ========================================= -->
+    <!-- SUPPLIER PAYMENT TREE VIEW -->
+    <!-- ========================================= -->
+    <record id="view_pharmacy_payment_supplier_tree" model="ir.ui.view">
+        <field name="name">pharmacy.payment.supplier.tree</field>
+        <field name="model">pharmacy.payment</field>
+        <field name="arch" type="xml">
+            <tree string="Supplier Payments" default_order="date desc">
+                <field name="date"/>
+                <field name="partner_id" string="Supplier" domain="[('partner_type','=','supplier')]"/>
+                <field name="amount"/>
+                <field name="total_amount"/>
+                <field name="amount_paid"/>
+                <field name="amount_due"/>
+                <field name="to_account_type"/>
+                <field name="to_account_id"/>
+                <field name="payment_status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ========================================= -->
+    <!-- SINGLE DYNAMIC PAYMENT FORM VIEW -->
+    <!-- ========================================= -->
+    <record id="view_pharmacy_payment_form" model="ir.ui.view">
+        <field name="name">pharmacy.payment.form</field>
+        <field name="model">pharmacy.payment</field>
+        <field name="arch" type="xml">
+            <form string="Payment">
+                <header>
+                    <button name="action_payment_done"
+                            string="Confirm Payment"
+                            type="object"
+                            class="btn-primary"
+                            invisible="payment_status != 'new'"/>
+                    <field name="payment_status"
+                           widget="statusbar"
+                           statusbar_visible="new,done"/>
+                </header>
+
+                <sheet>
+                    <!-- Ribbons -->
+                    <widget name="web_ribbon"
+                            title="New Payment"
+                            bg_color="bg-info"
+                            invisible="payment_status != 'new'"/>
+
+                    <widget name="web_ribbon"
+                            title="Payment Done"
+                            bg_color="bg-success"
+                            invisible="payment_status != 'done'"/>
+
+                    <!-- Hidden field -->
+                    <field name="partner_type" invisible="1"/>
+
+                    <group>
+                        <!-- CUSTOMER GROUP -->
+                        <group string="Customer Payment Information"
+                               invisible="partner_type != 'customer'">
+                            <field name="partner_id"
+                                   string="Customer"
+                                   domain="[('partner_type','=','customer')]"/>
+                            <field name="date"/>
+                            <field name="amount"/>
+                            <field name="note"/>
+                        </group>
+
+                        <!-- SUPPLIER GROUP -->
+                        <group string="Supplier Payment Information"
+                               invisible="partner_type != 'supplier'">
+                            <field name="partner_id"
+                                   string="Supplier"
+                                   domain="[('partner_type','=','supplier')]"/>
+                            <field name="date"/>
+                            <field name="amount"/>
+                            <field name="note"/>
+                        </group>
+
+                        <!-- ACCOUNT DETAILS -->
+                        <group string="Account Details">
+                            <field name="to_account_type"/>
+                            <field name="to_account_id"
+                                   required="1"
+                                   domain="[('account_type','=',to_account_type)]"/>
+
+                            <field name="to_cashier_id"
+                                   invisible="to_account_type != 'cashier'"/>
+                            <field name="to_currency_type" readonly="1"/>
+                            <field name="to_account_balance" readonly="1"/>
+                        </group>
+
+                        <!-- PAYMENT SUMMARY -->
+                        <group string="Payment Summary">
+                            <field name="total_amount" readonly="1"/>
+                            <field name="amount_paid" readonly="1"/>
+                            <field name="amount_due" readonly="1"/>
+                        </group>
+                    </group>
+                </sheet>
+
+                <!-- Chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- ========================================= -->
+    <!-- PAYMENT SEARCH VIEW WITH SEARCH PANEL -->
+    <!-- ========================================= -->
+    <record id="view_pharmacy_payment_search" model="ir.ui.view">
+        <field name="name">pharmacy.payment.search</field>
+        <field name="model">pharmacy.payment</field>
+        <field name="arch" type="xml">
+            <search string="Search Payments">
+
+                <!-- Search fields -->
+                <field name="partner_id"/>
+                <field name="to_account_id"/>
+                <field name="payment_status"/>
+                <field name="date"/>
+
+                <!-- Search Panel -->
+                <searchpanel>
+                    <field name="partner_id" icon="fa-user" enable_counters="1"/>
+                    <field name="payment_status" string="Status" enable_counters="1"/>
+                    <field name="to_account_id" icon="fa-money" string="Cash Account"/>
+                    <field name="payment_year" string="Year" select="multi" icon="fa-calendar"/>
+                    <field name="payment_month" string="Month" select="multi" icon="fa-calendar"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <!-- ========================================= -->
+    <!-- CUSTOMER ACTION -->
+    <!-- ========================================= -->
+    <record id="action_pharmacy_customer_payment" model="ir.actions.act_window">
+        <field name="name">Customer Payments</field>
+        <field name="res_model">pharmacy.payment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('partner_type','=','customer')]</field>
+        <field name="context">{'default_partner_type':'customer'}</field>
+        <field name="search_view_id" ref="view_pharmacy_payment_search"/>
+        <field name="views" eval="[
+            (ref('view_pharmacy_payment_customer_tree'),'tree'),
+            (ref('view_pharmacy_payment_form'),'form')
+        ]"/>
+    </record>
+
+    <!-- ========================================= -->
+    <!-- SUPPLIER ACTION -->
+    <!-- ========================================= -->
+    <record id="action_pharmacy_supplier_payment" model="ir.actions.act_window">
+        <field name="name">Supplier Payments</field>
+        <field name="res_model">pharmacy.payment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('partner_type','=','supplier')]</field>
+        <field name="context">{'default_partner_type':'supplier'}</field>
+        <field name="search_view_id" ref="view_pharmacy_payment_search"/>
+        <field name="views" eval="[
+            (ref('view_pharmacy_payment_supplier_tree'),'tree'),
+            (ref('view_pharmacy_payment_form'),'form')
+        ]"/>
+    </record>
+
+    <!-- ========================================= -->
+    <!-- MENUS -->
+    <!-- ========================================= -->
+    <menuitem id="menu_pharmacy_payment_root"
+              name="Payments"
+              parent="menu_pharmacy"
+              sequence="30"/>
+
+    <menuitem id="menu_pharmacy_customer_payment"
+              name="Customer Payments"
+              parent="menu_pharmacy_payment_root"
+              action="action_pharmacy_customer_payment"
+              sequence="1"/>
+
+    <menuitem id="menu_pharmacy_supplier_payment"
+              name="Supplier Payments"
+              parent="menu_pharmacy_payment_root"
+              action="action_pharmacy_supplier_payment"
+              sequence="2"/>
+
+</odoo>
