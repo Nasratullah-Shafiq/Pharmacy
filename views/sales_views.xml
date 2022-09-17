@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- =========================
+         PHARMACY SALES - TREE VIEW
+         Displays all sales records with details such as date, branch, type, quantity, revenue, and buyer
+         Users can create and edit records from this view
+    ========================== -->
+    <record id="view_pharmacy_sale_tree" model="ir.ui.view">
+        <field name="name">pharmacy.sale.tree</field>
+        <field name="model">pharmacy.sale</field>
+        <field name="arch" type="xml">
+            <tree string="Pharmacy Sales" create="true" edit="true">
+                <field name="date"/>
+<!--                <field name="branch_id"/>-->
+<!--                <field name="farm_id" domain="[('branch_id', '=', branch_id)]"/>-->
+                <field name="product_id"/>
+                <field name="product_type"/>
+                <field name="quantity"/>
+                <field name="sale_price"/>
+                <field name="currency_id"/>
+                <field name="total"/>
+                <field name="customer_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- =========================
+         PHARMACY SALES - FORM VIEW
+         Displays details for a single sale record
+         Revenue is readonly and currency_id is hidden
+         Includes chatter for messages and activities
+    ========================== -->
+    <record id="view_pharmacy_sale_form" model="ir.ui.view">
+        <field name="name">pharmacy.sale.form</field>
+        <field name="model">pharmacy.sale</field>
+        <field name="arch" type="xml">
+            <form string="Pharmacy Sale">
+                <header>
+                    <button name="action_sale_done"
+                            string="Mark as Sale Done"
+                            type="object"
+                            class="btn-primary"
+                            invisible="status != 'new'"/>
+
+                    <field name="status"
+                           widget="statusbar"
+                           statusbar_visible="new,sale_done"/>
+                </header>
+
+                <sheet>
+                    <!-- RIBBONS -->
+                    <widget name="web_ribbon"
+                            title="New Sale"
+                            bg_color="bg-info"
+                            invisible="status != 'new'"/>
+
+                    <widget name="web_ribbon"
+                            title="Sale Done"
+                            bg_color="bg-success"
+                            invisible="status != 'sale_done'"/>
+                    <!-- SALE CONTEXT -->
+                <group string="Sale Information">
+                    <group>
+                        <field name="date"/>
+
+                        <field name="product_id"/>
+                        <field name="product_type"/>
+                        <field name="customer_id"/>
+                    </group>
+                </group>
+
+                <!-- QUANTITY & PRICING -->
+                <group string="Quantity and Pricing">
+                    <group>
+                        <field name="available_quantity" readonly="1"/>
+                        <field name="quantity"/>
+                        <field name="uom_id"/>
+                        <field name="currency_id"/>
+                    </group>
+
+                    <group>
+                        <field name="purchase_price" readonly="1"/>
+                        <field name="sale_price"/>
+                        <field name="total" readonly="1"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                </group>
+
+            </sheet>
+
+            <!-- CHATTER -->
+            <div class="oe_chatter">
+                <field name="message_follower_ids"/>
+                <field name="activity_ids"/>
+                <field name="message_ids"/>
+            </div>
+
+        </form>
+
+    </field>
+</record>
+
+    <!-- =========================
+         PHARMACY SALES - SEARCH VIEW
+         Allows filtering by date, branch, type, and buyer
+         Includes search panel for quick filtering by branch and type
+    ========================== -->
+    <record id="view_pharmacy_sale_search" model="ir.ui.view">
+        <field name="name">pharmacy.sale.search</field>
+        <field name="model">pharmacy.sale</field>
+        <field name="arch" type="xml">
+            <search string="Search Sales">
+                <field name="date"/>
+                <field name="product_type"/>
+                <field name="customer_id"/>
+
+                <!-- Quick filter search panel -->
+                <searchpanel>
+                    <field name="product_type" string="Product Type" icon="fa-tag"/>
+                    <field name="customer_id" icon="fa-user"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <!-- =========================
+         PHARMACY SALES - ACTION WINDOW
+         Links tree and form views and attaches search view
+    ========================== -->
+    <record id="action_pharmacy_sale" model="ir.actions.act_window">
+        <field name="name">Pharmacy Sales</field>
+        <field name="res_model">pharmacy.sale</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="search_view_id" ref="view_pharmacy_sale_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first pharmacy sale record
+            </p>
+        </field>
+    </record>
+
+    <!-- =========================
+         PHARMACY SALES - PIVOT VIEW
+         Aggregates quantity and revenue by branch and pharmacy type
+    ========================== -->
+    <record id="view_pharmacy_sale_pivot" model="ir.ui.view">
+        <field name="name">pharmacy.sale.pivot</field>
+        <field name="model">pharmacy.sale</field>
+        <field name="arch" type="xml">
+            <pivot string="Pharmacy Sales Pivot">
+                <field name="quantity" type="measure"/>
+                <field name="total" type="measure"/>
+                <field name="product_type" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- =========================
+         PHARMACY SALES - GRAPH VIEW
+         Displays sales quantity per branch
+         Users can easily visualize sales data
+    ========================== -->
+    <record id="view_pharmacy_sale_graph" model="ir.ui.view">
+        <field name="name">pharmacy.sale.graph</field>
+        <field name="model">pharmacy.sale</field>
+        <field name="arch" type="xml">
+            <graph string="Sales Graph" type="bar">
+                <field name="quantity" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- =========================
+         PHARMACY SALES - MENU ITEMS
+         Root menu: Pharmacy Farm
+         Submenu: Sales opens the Pharmacy Sales action window
+    ========================== -->
+    <menuitem id="menu_pharmacy_sale_root"
+              name="Sales"
+              parent="menu_pharmacy"
+              action="action_pharmacy_sale"
+              sequence="20"/>
+</odoo>
