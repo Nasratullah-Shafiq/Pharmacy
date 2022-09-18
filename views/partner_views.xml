@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- =======================
+         CUSTOMER TREE VIEW
+    ======================== -->
+    <record id="view_pharmacy_partner_customer_tree" model="ir.ui.view">
+        <field name="name">pharmacy.partner.customer.tree</field>
+        <field name="model">pharmacy.partner</field>
+        <field name="arch" type="xml">
+            <tree string="Customers" default_order="name asc">
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="address"/>
+                <field name="note"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- =======================
+         SUPPLIER TREE VIEW
+    ======================== -->
+    <record id="view_pharmacy_partner_supplier_tree" model="ir.ui.view">
+        <field name="name">pharmacy.partner.supplier.tree</field>
+        <field name="model">pharmacy.partner</field>
+        <field name="arch" type="xml">
+            <tree string="Suppliers" default_order="name asc">
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="address"/>
+                <field name="note"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- =======================
+         FORM VIEW
+    ======================== -->
+    <record id="view_pharmacy_partner_form" model="ir.ui.view">
+        <field name="name">pharmacy.partner.form</field>
+        <field name="model">pharmacy.partner</field>
+        <field name="arch" type="xml">
+            <form string="Partner">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="partner_type" invisible="1"/>
+                        <field name="phone"/>
+                        <field name="email"/>
+                        <field name="address"/>
+                    </group>
+
+                    <group string="Payment and Debt Information">
+                        <field name="currency_id"/>
+                        <field name="total_amount" readonly="1"/>
+                        <field name="amount_paid" readonly="1"/>
+                        <field name="amount_due" readonly="1"/>
+                    </group>
+
+                    <group string="Notes">
+                        <field name="note"/>
+                    </group>
+
+                    <notebook>
+
+                        <!-- SALES TAB -->
+                        <page string="Sales" invisible="partner_type != 'customer'">
+                            <field name="sale_ids">
+                                <tree>
+                                    <field name="date"/>
+                                    <!-- <field name="item_type_id"/> -->
+                                    <field name="quantity"/>
+                                    <field name="sale_price"/>
+                                    <field name="total"/>
+                                    <field name="status"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <!-- PURCHASES TAB -->
+                        <page string="Purchases" invisible="partner_type != 'supplier'">
+                            <field name="purchase_ids">
+                                <tree>
+                                    <field name="date"/>
+                                    <!-- <field name="item_type_id"/> -->
+                                    <field name="quantity"/>
+                                    <field name="purchase_price"/>
+                                    <field name="total"/>
+                                    <field name="status"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <!-- CUSTOMER PAYMENTS -->
+                        <page string="Customer Payments" invisible="partner_type != 'customer'">
+                            <field name="payment_ids">
+                                <tree>
+                                    <field name="date"/>
+                                    <field name="amount"/>
+                                    <field name="note"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <!-- SUPPLIER PAYMENTS -->
+                        <page string="Supplier Payments" invisible="partner_type != 'supplier'">
+                            <field name="payment_ids">
+                                <tree>
+                                    <field name="date"/>
+                                    <field name="amount"/>
+                                    <field name="note"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- =======================
+         KANBAN VIEW
+    ======================== -->
+    <record id="view_pharmacy_partner_kanban" model="ir.ui.view">
+        <field name="name">pharmacy.partner.kanban</field>
+        <field name="model">pharmacy.partner</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_example" quick_create="true">
+                <!-- Required fields -->
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="currency_id"/>
+                <field name="total_amount"/>
+                <field name="amount_paid"/>
+                <field name="amount_due"/>
+
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_card card-shadow p-3 mb-3"
+                             style="border-radius: 12px; transition: transform 0.2s; cursor: pointer; font-size:16px;">
+
+                            <!-- Header -->
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <strong class="h4 text-primary">
+                                    <field name="name"/>
+                                </strong>
+                                <span class="badge bg-info text-white" style="font-size: 14px;">
+                                    <i class="fa fa-phone me-2"></i>
+                                    <field name="phone"/>
+                                </span>
+                            </div>
+
+                            <!-- Body -->
+                            <div class="o_kanban_details mb-2" style="line-height: 1.6;">
+                                <div>
+                                    <i class="fa fa-envelope text-primary"></i>
+                                    Email:
+                                    <field name="email"/>
+                                </div>
+
+                                <div>
+                                    <i class="fa fa-shopping-cart text-primary"></i>
+                                    Total Amount:
+                                    <span class="badge bg-primary text-white" style="font-size:14px;">
+                                        <field name="total_amount"/>
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <i class="fa fa-money"></i>
+                                    Amount Paid:
+                                    <span class="badge bg-success text-white" style="font-size:14px;">
+                                        <field name="amount_paid"/>
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <i class="fa fa-exclamation-circle text-danger"></i>
+                                    Amount Due:
+                                    <span class="badge bg-danger text-white" style="font-size:14px;">
+                                        <field name="amount_due"/>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Footer -->
+                            <div class="mt-3 d-flex align-items-center gap-2">
+                                <span class="badge bg-secondary rounded-pill px-3 py-1">
+                                    <i class="fa fa-user me-1"/>
+                                    Partner
+                                </span>
+
+                                <!-- Fully Paid -->
+                                <t t-if="record.amount_due.raw_value == 0">
+                                    <span class="badge bg-success text-white rounded-pill px-3 py-1">
+                                        Fully Paid
+                                    </span>
+                                </t>
+
+                                <!-- Partially Paid -->
+                                <t t-if="record.amount_paid.raw_value &gt; 0 and record.amount_due.raw_value &gt; 0">
+                                    <span class="badge bg-warning text-dark rounded-pill px-3 py-1">
+                                        Partially Paid
+                                    </span>
+                                </t>
+
+                                <!-- Not Paid -->
+                                <t t-if="record.amount_paid.raw_value == 0">
+                                    <span class="badge bg-danger text-white rounded-pill px-3 py-1">
+                                        Not Paid
+                                    </span>
+                                </t>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- =======================
+         CUSTOMER ACTION
+    ======================== -->
+    <record id="action_pharmacy_partner_customer" model="ir.actions.act_window">
+        <field name="name">Customers</field>
+        <field name="res_model">pharmacy.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('partner_type','=','customer')]</field>
+        <field name="context">{'default_partner_type':'customer'}</field>
+    </record>
+
+    <!-- =======================
+         SUPPLIER ACTION
+    ======================== -->
+    <record id="action_pharmacy_partner_supplier" model="ir.actions.act_window">
+        <field name="name">Suppliers</field>
+        <field name="res_model">pharmacy.partner</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('partner_type','=','supplier')]</field>
+        <field name="context">{'default_partner_type':'supplier'}</field>
+    </record>
+
+    <!-- =======================
+         MENUS
+    ======================== -->
+    <menuitem id="menu_pharmacy_partner" name="Partners" parent="menu_pharmacy" sequence="10"/>
+
+    <menuitem id="menu_pharmacy_partner_customer"
+              name="Customers"
+              parent="menu_pharmacy_partner"
+              action="action_pharmacy_partner_customer"
+              sequence="1"/>
+
+    <menuitem id="menu_pharmacy_partner_supplier"
+              name="Suppliers"
+              parent="menu_pharmacy_partner"
+              action="action_pharmacy_partner_supplier"
+              sequence="2"/>
+
+</odoo>
