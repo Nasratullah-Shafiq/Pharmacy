@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- =========================
+         ROOT MENU FOR PHARMACY
+    ========================== -->
+    <menuitem id="menu_pharmacy_root" name="Pharmacy" sequence="15" parent=""/>
+
+
+    <!-- =========================
+         PHARMACY PURCHASE VIEWS
+    ========================== -->
+    <!-- Tree View for Purchases -->
+    <record id="view_pharmacy_purchase_tree" model="ir.ui.view">
+        <field name="name">pharmacy.purchase.tree</field>
+        <field name="model">pharmacy.purchase</field>
+        <field name="arch" type="xml">
+            <tree string="Pharmacy Purchase" create="true" edit="true">
+                <field name="date"/>
+                <field name="uom_id"/>
+                <field name="quantity"/>
+                <field name="purchase_price" widget="monetary" sum="Total Unit Price"/>
+                <field name="total" widget="monetary" sum="Grand Total"/>
+
+                <field name="supplier_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View for Purchases -->
+    <record id="view_pharmacy_purchase_form" model="ir.ui.view">
+        <field name="name">pharmacy.purchase.form</field>
+        <field name="model">pharmacy.purchase</field>
+        <field name="arch" type="xml">
+            <form string="Pharmacy Purchase" create="true" edit="true">
+                <header>
+                    <button name="action_purchase_done"
+                            string="Mark as Purchase Done"
+                            type="object"
+                            class="btn-primary"
+                            invisible="status != 'new'"/>
+
+                    <field name="status"
+                           widget="statusbar"
+                           statusbar_visible="new,purchase_done"/>
+                </header>
+
+                <sheet>
+                    <!--  RIBBONS GO HERE  -->
+                    <widget name="web_ribbon"
+                            title="New Purchase"
+                            bg_color="bg-success"
+                            invisible="status != 'new'"/>
+
+                    <widget name="web_ribbon"
+                            title="Purchase Done"
+                            bg_color="bg-info"
+                            invisible="status != 'purchase_done'"/>
+                   <group>
+                    <group>
+                        <field name="date"/>
+                        <field name="product_id"/>
+                        <field name="product_type"/>
+                        <field name="supplier_id"/>
+
+                    </group>
+                    <group>
+                        <field name="uom_id"/>
+                        <field name="quantity"/>
+                        <field name="currency_id"/>
+                        <field name="purchase_price"/>
+                        <field name="total" readonly="1"/>
+<!--                        <field name="cost_amount" readonly="1"/>-->
+                    </group>
+                </group>
+                </sheet>
+                <!-- Chatter for messages and activities -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Pivot View for Purchases -->
+    <record id="view_pharmacy_purchase_pivot" model="ir.ui.view">
+        <field name="name">pharmacy.purchase.pivot</field>
+        <field name="model">pharmacy.purchase</field>
+        <field name="arch" type="xml">
+            <pivot string="Purchases Pivot">
+                <field name="quantity" type="measure"/>
+                <field name="purchase_price" type="measure"/>
+
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Graph View for Purchases -->
+    <record id="view_pharmacy_purchase_graph" model="ir.ui.view">
+        <field name="name">pharmacy.purchase.graph</field>
+        <field name="model">pharmacy.purchase</field>
+        <field name="arch" type="xml">
+            <graph string="Purchases Graph" type="bar">
+                <field name="quantity" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Search View for Purchases -->
+    <record id="view_pharmacy_purchase_search" model="ir.ui.view">
+        <field name="name">pharmacy.purchase.search</field>
+        <field name="model">pharmacy.purchase</field>
+        <field name="arch" type="xml">
+            <search string="Search Purchases">
+                <field name="date"/>
+                <field name="supplier_id"/>
+
+                <!-- Search Panel for Branch and Type -->
+                <searchpanel>
+                    <field name="product_type" string="Product Type" icon="fa-tag"/>
+                    <field name="supplier_id" icon="fa-user"/>
+                </searchpanel>
+
+            </search>
+        </field>
+    </record>
+
+    <!-- Action to open Purchases -->
+    <record id="action_purchase" model="ir.actions.act_window">
+        <field name="name">Pharmacy Purchases</field>
+        <field name="res_model">pharmacy.purchase</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="search_view_id" ref="view_pharmacy_purchase_search"/>
+    </record>
+
+    <!-- Menu for Purchases -->
+    <menuitem id="menu_pharmacy_purchases"
+              name="Purchases"
+              parent="menu_pharmacy"
+              action="action_purchase"/>
+
+</odoo>
