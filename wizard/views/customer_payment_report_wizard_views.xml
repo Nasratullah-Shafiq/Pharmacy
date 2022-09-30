@@ -1,0 +1,73 @@
+<odoo>
+    <!-- Wizard Form View -->
+    <record id="view_customer_payment_report_wizard" model="ir.ui.view">
+        <field name="name">customer.payment.report.wizard.form</field>
+        <field name="model">customer.payment.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Customer Payment Report Wizard">
+                <sheet>
+                    <h2>
+                        <span>Customer Payment Report</span>
+                    </h2>
+
+                    <!-- Filters -->
+                    <group>
+                        <field name="customer_id"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                    </group>
+
+                    <!-- Summary Totals -->
+                    <group string="Summary Totals">
+                        <field name="total_sale" readonly="1"/>
+                        <field name="total_payment" readonly="1"/>
+                        <field name="total_due" readonly="1"/>
+                    </group>
+
+                    <!-- Payment Details -->
+                    <group string="Payment Details">
+                        <field name="payment_lines" string="" readonly="1">
+                            <tree>
+                                <field name="date"/>
+                                <field name="partner_id"/>
+                                <field name="account_id"/>
+                                <field name="amount"/>
+                                <field name="note"/>
+                            </tree>
+                        </field>
+                    </group>
+
+                    <!-- Footer Buttons -->
+                    <footer>
+                        <button string="Generate Report" type="object" name="generate_report" class="btn-primary"/>
+                        <button string="Print PDF" type="object" name="print_pdf_report" class="btn-secondary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Wizard Action -->
+    <record id="action_customer_payment_report_wizard" model="ir.actions.act_window">
+        <field name="name">Customer Payment Report</field>
+        <field name="res_model">customer.payment.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_poultry_payment"
+              name="Payment Reports"
+              parent="menu_finance_reports"
+              sequence="5"/>
+
+    <menuitem id="menu_customers_payment_report"
+              name="Customer Payments"
+              parent="menu_poultry_payment"
+              action="action_customer_payment_report_wizard"
+              sequence="15"/>
+
+
+</odoo>
