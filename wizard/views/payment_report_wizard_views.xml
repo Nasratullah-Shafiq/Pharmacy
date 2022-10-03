@@ -1,0 +1,85 @@
+<odoo>
+    <record id="view_payment_report_wizard" model="ir.ui.view">
+        <field name="name">payment.report.wizard.form</field>
+        <field name="model">payment.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Payment Report Wizard">
+                <sheet>
+                    <group>
+                        <field name="branch_id"/>
+
+                        <!-- Hidden partner_type to determine menu context -->
+                        <field name="partner_type" invisible="1"/>
+
+                        <!-- Partner selection dynamically filtered by partner_type -->
+                        <field name="customer_id" invisible="partner_type != 'customer'"
+                               domain="[('partner_type', '=', 'customer')]"/>
+                        <field name="supplier_id" invisible="partner_type != 'supplier'"
+                               domain="[('partner_type', '=', 'supplier')]"/>
+
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                    </group>
+
+                    <group string="Summary Totals">
+                        <field name="total_transaction" readonly="1"/>
+                        <field name="total_amount" readonly="1"/>
+                        <field name="total_due" readonly="1"/>
+                    </group>
+
+                    <group string="Payment Lines">
+                        <field name="payment_lines" readonly="1" string="">
+                            <tree>
+                                <field name="date"/>
+                                <field name="partner_type" invisible="1"/>
+                                <field name="customer_id" invisible="partner_type != 'customer'"
+                                       domain="[('partner_type', '=', 'customer')]"/>
+                                <field name="supplier_id" invisible="partner_type != 'supplier'"
+                                       domain="[('partner_type', '=', 'supplier')]"/>
+                                <field name="branch_id"/>
+                                <field name="account_id"/>
+                                <field name="amount"/>
+                                <field name="note"/>
+                            </tree>
+                        </field>
+                    </group>
+
+                    <footer>
+                        <button string="Generate Report" type="object" name="generate_report" class="btn-primary"/>
+                        <button string="Print PDF" type="object" name="print_pdf_report" class="btn-secondary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Wizard Actions -->
+    <record id="action_customer_payment_wizard" model="ir.actions.act_window">
+        <field name="name">Customer Payment Report</field>
+        <field name="res_model">payment.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_partner_type':'customer'}</field>
+    </record>
+
+    <record id="action_supplier_payment_wizard" model="ir.actions.act_window">
+        <field name="name">Supplier Payment Report</field>
+        <field name="res_model">payment.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_partner_type':'supplier'}</field>
+    </record>
+
+    <!-- Menus -->
+    <menuitem id="menu_customer_payment_report"
+              name="Customer Payments Reports"
+              parent="menu_finance_reports"
+              action="action_customer_payment_wizard"
+              sequence="10"/>
+
+    <menuitem id="menu_supplier_payment_report"
+              name="Supplier Payments Reports"
+              parent="menu_finance_reports"
+              action="action_supplier_payment_wizard"
+              sequence="25"/>
+</odoo>
