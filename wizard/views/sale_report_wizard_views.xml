@@ -1,0 +1,57 @@
+<odoo>
+    <record id="view_pharmacy_sale_report_wizard" model="ir.ui.view">
+        <field name="name">pharmacy.sale.report.wizard.form</field>
+        <field name="model">pharmacy.sale.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Pharmacy Sale Report Wizard">
+                <sheet>
+                    <h2>
+                        <span>Pharmacy Sale Report</span>
+                    </h2>
+
+                    <group>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                    </group>
+
+                    <group string="Summary Totals">
+                        <field name="total_quantity" readonly="1"/>
+                        <field name="total_revenue" readonly="1"/>
+                    </group>
+
+                    <group string="Sale Details">
+                        <field name="sale_lines" string="" readonly="1">
+                            <tree>
+                                <field name="date"/>
+                                <field name="product_type"/>
+                                <field name="customer_id"/>
+                                <field name="quantity"/>
+                                <field name="unit_price"/>
+                                <field name="total"/>
+                            </tree>
+                        </field>
+                    </group>
+
+                    <footer>
+                        <button string="Generate Report" type="object" name="generate_report" class="btn-primary"/>
+                        <button string="Print PDF" type="object" name="print_pdf_report" class="btn-secondary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pharmacy_sale_report_wizard" model="ir.actions.act_window">
+        <field name="name">Pharmacy Sale Report</field>
+        <field name="res_model">pharmacy.sale.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_pharmacy_sale_report"
+              name="Sale Report"
+              parent="menu_finance_reports"
+              action="action_pharmacy_sale_report_wizard"
+              sequence="10"/>
+</odoo>
