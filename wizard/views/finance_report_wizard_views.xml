@@ -1,0 +1,69 @@
+<odoo>
+    <!-- Finance Report Wizard Form -->
+    <record id="view_pharmacy_finance_report_wizard" model="ir.ui.view">
+        <field name="name">pharmacy.finance.report.wizard</field>
+        <field name="model">pharmacy.finance.report</field>
+        <field name="arch" type="xml">
+            <form string="Pharmacy Finance Report" class="oe_form_finance_report">
+                <sheet>
+                    <h2>
+                        <span>Pharmacy Complete Finance Report</span>
+                    </h2>
+
+                    <group>
+                        <group>
+                            <field name="start_date" required="1"/>
+                            <field name="end_date" required="1"/>
+                        </group>
+                    </group>
+
+                    <separator string="Calculated Totals" colspan="4"/>
+
+                    <group string="Summary of Totals" colspan="4">
+                        <group string="Income and Sales">
+                            <field name="total_income" readonly="1" class="oe_highlight"/>
+                            <field name="total_sales" readonly="1" class="oe_highlight"/>
+                        </group>
+
+                        <group string="Expenses and Costs">
+                            <field name="total_purchases" readonly="1"/>
+                            <field name="total_expenses" readonly="1"/>
+                            <field name="total_salaries" readonly="1"/>
+                        </group>
+
+                        <group string="Net Result">
+                            <field name="net_profit" readonly="1" class="oe_highlight"/>
+                        </group>
+                    </group>
+                </sheet>
+
+                <footer>
+                    <button string="Compute Report"
+                            name="compute_report"
+                            type="object"
+                            class="btn-primary"/>
+
+                    <button string="Print PDF"
+                            name="print_pdf_report"
+                            type="object"
+                            class="btn-secondary"/>
+
+                    <button string="Close"
+                            special="cancel"
+                            class="btn-default"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action to Open Wizard -->
+    <record id="action_pharmacy_finance_report_wizard" model="ir.actions.act_window">
+        <field name="name">Pharmacy Finance Report</field>
+        <field name="res_model">pharmacy.finance.report</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_pharmacy_finance_report_wizard"/>
+        <field name="target">new</field>
+    </record>
+
+
+</odoo>
