@@ -1,0 +1,66 @@
+<odoo>
+    <!-- Supplier Payment Report Wizard Form -->
+    <record id="view_supplier_payment_report_wizard" model="ir.ui.view">
+        <field name="name">supplier.payment.report.wizard.form</field>
+        <field name="model">supplier.payment.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Supplier Payment Report Wizard">
+                <sheet>
+                    <h2>
+                        <span>Supplier Payment Report</span>
+                    </h2>
+
+                    <!-- Filters -->
+                    <group>
+                        <field name="supplier_id"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                    </group>
+
+                    <!-- Summary Totals -->
+                    <group string="Summary Totals">
+                        <field name="total_payment" readonly="1"/>
+                        <field name="total_purchase" readonly="1"/>
+                        <field name="total_due" readonly="1"/>
+                    </group>
+
+                    <!-- Payment Details -->
+                    <group string="Payment Details">
+                        <field name="payment_lines" string="" readonly="1">
+                            <tree>
+                                <field name="date"/>
+                                <field name="supplier_id"/>
+                                <field name="account_id"/>
+                                <field name="amount"/>
+                                <field name="total_purchase"/>
+                                <field name="note"/>
+                            </tree>
+                        </field>
+                    </group>
+
+                    <!-- Footer Buttons -->
+                    <footer>
+                        <button string="Generate Report" type="object" name="generate_report" class="btn-primary"/>
+                        <button string="Print PDF" type="object" name="print_pdf_report" class="btn-secondary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Wizard Action -->
+    <record id="action_supplier_payment_report_wizard" model="ir.actions.act_window">
+        <field name="name">Supplier Payment Report</field>
+        <field name="res_model">supplier.payment.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_suppliers_payment_report"
+              name="Supplier Payments"
+              parent="menu_poultry_payment"
+              action="action_supplier_payment_report_wizard"
+              sequence="20"/>
+</odoo>
