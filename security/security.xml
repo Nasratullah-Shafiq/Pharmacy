@@ -61,6 +61,7 @@
 <!---->
 <!--access_sale_report_line,Sale Report Line,pharmacy.model_pharmacy_sale_report_line,base.group_user,1,0,1,0-->
 <!---->
+
 <!--access_pharmacy_sale_report_line_manager,Pharmacy Sale Report Line Manager,model_pharmacy_sale_report_line,pharmacy.group_pharmacy_manager,1,1,0,1-->
 <!--access_pharmacy_purchase_report_line,pharmacy.purchase.report.line,model_pharmacy_purchase_report_line,,1,1,1,1-->
 <!---->
