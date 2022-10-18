@@ -3,7 +3,6 @@ from datetime import date, datetime, timedelta
 from odoo.exceptions import ValidationError
 import datetime
 
-
 class PharmacySalary(models.Model):
     _name = 'salary.payment'
     _description = 'Employee Salary Payment'
