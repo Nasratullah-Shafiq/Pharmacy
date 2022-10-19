@@ -38,6 +38,7 @@ class PharmacySale(models.Model):
         default=lambda self: self.env.ref('pharmacy.currency_afn')
     )
 
+
     customer_id = fields.Many2one(
         'pharmacy.partner',
         string="Customer",
