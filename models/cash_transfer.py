@@ -27,7 +27,6 @@ class PharmacyCashTransfer(models.Model):
         store=True
     )
 
-
     # Cashier responsible for the source account
     from_cashier_id = fields.Many2one('pharmacy.cashier', string="From Cashier")
 
