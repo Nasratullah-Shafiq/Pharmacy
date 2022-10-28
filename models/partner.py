@@ -4,7 +4,6 @@ from odoo import models, fields, api
 from odoo.exceptions import ValidationError, UserError
 
 
-
 class PharmacyPartner(models.Model):
     _name = 'pharmacy.partner'
     _description = 'Partner (Customer/Supplier)'
