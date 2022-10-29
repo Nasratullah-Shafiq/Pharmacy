@@ -15,9 +15,7 @@
 #     # PARTNER INFO
 #
 #     partner_type = fields.Selection(related='partner_id.partner_type', store=True)
-#     date = fields.Date(default=fields.Date.today, required=True)
-#     amount = fields.Float(required=True)
-#     note = fields.Text()
+
 #
 #     # CASH ACCOUNT
 
