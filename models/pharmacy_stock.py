@@ -2,12 +2,7 @@ from odoo import models, fields, api
 from odoo.exceptions import UserError
 
 
-#
-#     sale_price = fields.Monetary(
-#         string="Sale Price",
-#         currency_field='currency_id',
-#         tracking=True
-#     )
+
 #     product_type = fields.Selection([
 #         ('chicken', 'Chicken'),
 #         ('feed', 'Feed'),
