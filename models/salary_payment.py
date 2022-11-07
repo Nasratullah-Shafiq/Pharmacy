@@ -50,6 +50,7 @@ class PharmacySalary(models.Model):
         compute="_compute_year_month",
         store=True
     )
+    
 
     paid_this_month_display = fields.Monetary(
         string='',
