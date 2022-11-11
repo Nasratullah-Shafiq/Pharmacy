@@ -16,7 +16,6 @@ class PharmacyCashTransfer(models.Model):
         default=lambda self: self.env['ir.sequence'].next_by_code('pharmacy.cash.transfer'),
         readonly=True
     )
-
     # -------------------------- FROM ACCOUNT DETAILS --------------------------
     # The account from which money will be transferred
     from_account_id = fields.Many2one('pharmacy.cash.account', string="From Account")
