@@ -19,7 +19,6 @@
                             <strong>To:</strong>
                             <t t-esc="o.end_date"/>
                         </p>
-
                         <p>
                             <strong>Customer:</strong>
                             <t t-esc="o.customer_id.name if o.customer_id else 'All Customers'"/>
