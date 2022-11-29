@@ -37,7 +37,6 @@ class PharmacySalary(models.Model):
         compute='_compute_payment_status',
         store=True
     )
-
     notes = fields.Text(string='Notes')
 
     salary_month = fields.Selection(
