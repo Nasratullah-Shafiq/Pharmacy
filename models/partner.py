@@ -24,7 +24,6 @@ class PharmacyPartner(models.Model):
     # SUPPLIER PURCHASES
     purchase_ids = fields.One2many('pharmacy.purchase', 'supplier_id', string='Purchases')
 
-
     payment_ids = fields.One2many('pharmacy.payment', 'partner_id', string='Payments')
 
 
