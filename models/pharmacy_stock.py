@@ -8,7 +8,7 @@ from odoo.exceptions import UserError
 #         ('feed', 'Feed'),
 #         ('medicine', 'Medicine'),
 #     ], string="Product Type", required=True, tracking=True, default='medicine')
-#
+
 #     currency_id = fields.Many2one(
 #         'res.currency',
 #         string="Currency",
