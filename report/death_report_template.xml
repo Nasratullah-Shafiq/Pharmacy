@@ -8,6 +8,7 @@
                         <p style="font-size:14px; color:#555;">Detailed Record of All Deaths</p>
                     </div>
 
+
                     <div style="margin-bottom:15px; font-size:14px; color:#333;">
                         <p><strong>From:</strong> <t t-esc="o.start_date"/>
                            <span style="margin-left:20px;"></span>
