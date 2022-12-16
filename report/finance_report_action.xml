@@ -20,6 +20,7 @@
         <field name="print_report_name">'Pharmacy Purchase Report - %s' % (object.start_date)</field>
     </record>
 
+
     <!-- Report Action for Pharmacy Sale -->
     <record id="action_pharmacy_sale_report" model="ir.actions.report">
         <field name="name">Pharmacy Sale Report</field>
