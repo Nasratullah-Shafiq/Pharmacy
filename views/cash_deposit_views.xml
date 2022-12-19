@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-
     <!-- TREE VIEW -->
     <record id="view_pharmacy_cash_deposit_tree" model="ir.ui.view">
         <field name="name">pharmacy.cash.deposit.tree</field>
