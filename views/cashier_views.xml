@@ -12,6 +12,7 @@
             </p>
         </field>
     </record>
+    
 
     <!-- Tree View -->
     <record id="view_pharmacy_cashier_tree" model="ir.ui.view">
