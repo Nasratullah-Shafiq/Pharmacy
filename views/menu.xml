@@ -27,6 +27,7 @@
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
+    
 
     <menuitem id="menu_finance_report_wizard"
               name="Generate Finance Report"
