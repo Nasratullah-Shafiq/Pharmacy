@@ -9,7 +9,6 @@
         <field name="print_report_name">'Pharmacy Finance Report - %s' % (object.start_date)</field>
     </record>
 
-
     <!-- Report Action for Pharmacy Purchase -->
     <record id="action_pharmacy_purchase_report" model="ir.actions.report">
         <field name="name">Pharmacy Purchase Report</field>
