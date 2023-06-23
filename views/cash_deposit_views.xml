@@ -15,6 +15,7 @@
                 <field name="note"/>
             </tree>
         </field>
+        
     </record>
 
     <!-- FORM VIEW -->
