@@ -21,6 +21,7 @@
 
         # Menus should load first
         'views/menu.xml',
+        
 
         # Wizard files
         'wizard/views/finance_report_wizard_views.xml',
