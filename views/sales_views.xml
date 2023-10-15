@@ -20,6 +20,7 @@
                 <field name="currency_id"/>
                 <field name="total"/>
                 <field name="customer_id"/>
+                
             </tree>
         </field>
     </record>
