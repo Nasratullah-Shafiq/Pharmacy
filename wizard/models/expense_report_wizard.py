@@ -10,6 +10,7 @@ class ExpenseReportWizard(models.TransientModel):
     start_date = fields.Date(string="Start Date", required=True)
     end_date = fields.Date(string="End Date", required=True)
 
+
     # Summary
     total_expense_amount = fields.Float(
         string="Total Expenses",
