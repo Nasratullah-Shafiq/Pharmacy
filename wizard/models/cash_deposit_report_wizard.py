@@ -13,6 +13,7 @@ class CashDepositReportWizard(models.TransientModel):
         'pharmacy.cash.account',
         string="Cash Account"
     )
+    
 
     # Currency-wise totals
     total_afn = fields.Monetary(
