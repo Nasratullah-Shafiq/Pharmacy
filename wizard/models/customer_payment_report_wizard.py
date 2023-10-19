@@ -14,6 +14,7 @@ class CustomerPaymentReportWizard(models.TransientModel):
         string="Customer",
         domain=[('partner_type', '=', 'customer')]
     )
+    
 
     # Totals
     total_sale = fields.Monetary(string="Total Sale", readonly=True)
