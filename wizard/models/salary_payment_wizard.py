@@ -12,6 +12,7 @@ class SalaryPaymentReport(models.TransientModel):
         string="Farm",
         domain="[('branch_id', '=', branch_id)]"
     )
+    
     branch_id = fields.Many2one('poultry.branch', string="Branch")
 
     total_paid_amount = fields.Monetary(string="Total Salary Paid", readonly=True)
