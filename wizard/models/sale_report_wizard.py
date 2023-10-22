@@ -13,6 +13,7 @@ class PharmacySaleReportWizard(models.TransientModel):
         string="Total Quantity",
         readonly=True
     )
+    
 
     total_revenue = fields.Monetary(
         string="Total Sale",
