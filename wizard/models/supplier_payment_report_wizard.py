@@ -16,6 +16,7 @@ class SupplierPaymentReportWizard(models.TransientModel):
         string="Supplier",
         domain=[('partner_type', '=', 'supplier')]
     )
+    
 
     # Totals
     total_purchase = fields.Monetary(string="Total Purchase", readonly=True)
