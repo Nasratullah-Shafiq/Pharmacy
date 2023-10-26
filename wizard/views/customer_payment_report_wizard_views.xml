@@ -10,6 +10,7 @@
                         <span>Customer Payment Report</span>
                     </h2>
 
+
                     <!-- Filters -->
                     <group>
                         <field name="customer_id"/>
