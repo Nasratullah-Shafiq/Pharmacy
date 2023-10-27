@@ -11,6 +11,7 @@
                         <field name="start_date"/>
                         <field name="end_date"/>
                     </group>
+                    
 
                     <group string="Summary">
                         <field name="total_deaths" readonly="1"/>
