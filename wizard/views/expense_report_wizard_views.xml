@@ -10,6 +10,7 @@
         <field name="arch" type="xml">
             <form string="Expense Report">
 
+
                 <!-- Filters -->
                 <group>
                     <field name="start_date"/>
