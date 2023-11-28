@@ -10,6 +10,7 @@
                         <span>Supplier Payment Report</span>
                     </h2>
 
+
                     <!-- Filters -->
                     <group>
                         <field name="supplier_id"/>
