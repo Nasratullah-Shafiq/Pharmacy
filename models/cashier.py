@@ -11,3 +11,4 @@ class PharmacyCashier(models.Model):
 
     active = fields.Boolean(default=True)
 
+
