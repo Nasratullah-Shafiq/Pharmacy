@@ -20,6 +20,7 @@ class PharmacyCashTransfer(models.Model):
     # The account from which money will be transferred
     from_account_id = fields.Many2one('pharmacy.cash.account', string="From Account")
 
+
     # Currency type of the source account (derived from the related account)
     from_currency_type = fields.Selection(
         related='from_account_id.currency_type',
