@@ -8,6 +8,7 @@
             <field name="email">sultan@example.com</field>
         </record>
 
+
         <record id="partner_obaid" model="res.partner">
             <field name="name">Obaidullah Momand</field>
             <field name="email">obaidullah@example.com</field>
