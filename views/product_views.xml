@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
+
     <!-- Tree View -->
     <record id="view_pharmacy_product_tree" model="ir.ui.view">
         <field name="name">pharmacy.product.tree</field>
