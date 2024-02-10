@@ -11,6 +11,7 @@
                         <!-- Hidden partner_type to determine menu context -->
                         <field name="partner_type" invisible="1"/>
 
+
                         <!-- Partner selection dynamically filtered by partner_type -->
                         <field name="customer_id" invisible="partner_type != 'customer'"
                                domain="[('partner_type', '=', 'customer')]"/>
