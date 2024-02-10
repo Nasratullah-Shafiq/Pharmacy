@@ -39,6 +39,7 @@ class PharmacySalary(models.Model):
     )
     notes = fields.Text(string='Notes')
 
+
     salary_month = fields.Selection(
         [
             ('1', 'January'), ('2', 'February'), ('3', 'March'), ('4', 'April'),
