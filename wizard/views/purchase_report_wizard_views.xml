@@ -8,6 +8,7 @@
                     <field name="start_date"/>
                     <field name="end_date"/>
                 </group>
+                
 
                 <group string="Summary Totals">
                     <field name="total_quantity" readonly="1"/>
