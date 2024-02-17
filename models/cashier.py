@@ -9,6 +9,7 @@ class PharmacyCashier(models.Model):
     phone = fields.Char("Phone")
     email = fields.Char("Email")
 
+
     active = fields.Boolean(default=True)
 
 
