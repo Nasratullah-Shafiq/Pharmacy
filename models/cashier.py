@@ -7,9 +7,8 @@ class PharmacyCashier(models.Model):
 
     name = fields.Char("Cashier Name", required=True, tracking=True)
     phone = fields.Char("Phone")
-    
-    email = fields.Char("Email")
 
+    email = fields.Char("Email")
 
     active = fields.Boolean(default=True)
 
