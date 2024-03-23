@@ -117,6 +117,7 @@ class PharmacyCashDeposit(models.Model):
 
     cashier_id = fields.Many2one('pharmacy.cashier', string="From Cashier")
 
+
     account_type = fields.Selection([
         ('main', 'Main Account'),
         ('cashier', 'Cashier Account'),
