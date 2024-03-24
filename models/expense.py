@@ -140,7 +140,6 @@ class PharmacyExpense(models.Model):
         if not main_account:
             raise ValidationError("No main cash account found. Please create a main cash account first.")
 
-
         return main_account
     # -------------------------
     # Create
