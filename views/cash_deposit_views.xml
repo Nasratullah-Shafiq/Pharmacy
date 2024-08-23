@@ -15,8 +15,7 @@
                 <field name="note"/>
             </tree>
         </field>
-        
-    </record>
+            </record>
 
     <!-- FORM VIEW -->
     <record id="view_pharmacy_cash_deposit_form" model="ir.ui.view">
