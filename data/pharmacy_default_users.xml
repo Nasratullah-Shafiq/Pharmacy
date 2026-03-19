@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!-- Partners -->
+        <record id="partner_sultan" model="res.partner">
+            <field name="name">Sultan</field>
+            <field name="email">sultan@example.com</field>
+        </record>
+
+        <record id="partner_obaid" model="res.partner">
+            <field name="name">Obaidullah Momand</field>
+            <field name="email">obaidullah@example.com</field>
+        </record>
+
+        <record id="partner_najib" model="res.partner">
+            <field name="name">Najib</field>
+            <field name="email">najib@example.com</field>
+        </record>
+
+        <record id="partner_rasheed" model="res.partner">
+            <field name="name">Rasheed</field>
+            <field name="email">rasheed@example.com</field>
+        </record>
+
+        <!-- Users -->
+        <record id="user_sultan_manager" model="res.users">
+            <field name="name">Sultan</field>
+            <field name="login">sultan</field>
+            <field name="password">sultan123</field>
+            <field name="partner_id" ref="pharmacy.partner_sultan"/>
+            <field name="groups_id" eval="[
+                (4, ref('base.group_user')),
+                (4, ref('pharmacy.group_pharmacy_manager'))
+            ]"/>
+            <field name="share" eval="False"/>
+        </record>
+
+        <record id="user_obaid_manager" model="res.users">
+            <field name="name">Obaidullah Momand</field>
+            <field name="login">obaidullah</field>
+            <field name="password">obaid123</field>
+            <field name="partner_id" ref="pharmacy.partner_obaid"/>
+            <field name="groups_id" eval="[
+                (4, ref('base.group_user')),
+                (4, ref('pharmacy.group_pharmacy_manager'))
+            ]"/>
+            <field name="share" eval="False"/>
+        </record>
+
+        <record id="user_najib_officer" model="res.users">
+            <field name="name">Najib</field>
+            <field name="login">najib</field>
+            <field name="password">najib123</field>
+            <field name="partner_id" ref="pharmacy.partner_najib"/>
+            <field name="groups_id" eval="[
+                (4, ref('base.group_user')),
+                (4, ref('pharmacy.group_pharmacy_record_officer'))
+            ]"/>
+            <field name="share" eval="False"/>
+        </record>
+
+        <record id="user_rasheed_officer" model="res.users">
+            <field name="name">Rasheed</field>
+            <field name="login">rasheed</field>
+            <field name="password">rasheed123</field>
+            <field name="partner_id" ref="pharmacy.partner_rasheed"/>
+            <field name="groups_id" eval="[
+                (4, ref('base.group_user')),
+                (4, ref('pharmacy.group_pharmacy_record_officer'))
+            ]"/>
+            <field name="share" eval="False"/>
+        </record>
+
+    </data>
+</odoo>
