@@ -165,7 +165,7 @@ class PharmacyStock(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     product_type = fields.Selection(related='product_id.product_type', store=True)
-    pharmacy_id = fields.Many2one('pharmacy.store', string='Pharmacy', required=True)
+    # pharmacy_id = fields.Many2one('pharmacy.store', string='Pharmacy', required=True)
     product_id = fields.Many2one('pharmacy.product', string="Product", required=True, ondelete='cascade', tracking=True)
 
     expiry_date = fields.Date(string="Expiry Date", tracking=True)
@@ -185,32 +185,3 @@ class PharmacyStock(models.Model):
                              default=lambda self: self.env.ref('uom.product_uom_unit'))
     last_updated = fields.Datetime(string="Last Updated", default=fields.Datetime.now)
 
-    @api.model
-    def create(self, vals):
-        """Override create to update stock after record creation"""
-        rec = super(PharmacyStock, self).create(vals)
-        rec._update_stock()
-        return rec
-
-    def _update_stock(self):
-        """Update total_quantity by adding purchases and subtracting consumptions/losses"""
-        for record in self:
-            # Total purchased quantity for this branch and product
-            purchases = self.env['pharmacy.purchase'].search([
-                ('branch_id', '=', record.branch_id.id),
-            ])
-            total_purchased = sum(p.quantity for p in purchases)
-
-            # Total consumed/lost for this branch and product
-            losses = self.env['pharmacy.loss'].search([
-                ('branch_id', '=', record.branch_id.id),
-            ])
-            total_losses = sum(l.quantity for l in losses)
-
-            # Calculate net stock
-            net_quantity = total_purchased - total_losses
-            if net_quantity < 0:
-                net_quantity = 0  # prevent negative stock
-
-            record.total_quantity = net_quantity
-            record.last_updated = fields.Datetime.now()
