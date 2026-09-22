@@ -1,0 +1,49 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_pharmacy_employee,Pharmacy Employee,pharmacy.model_pharmacy_employee,base.group_system,1,1,1,1
+
+access_pharmacy_purchase,Pharmacy Purchase,pharmacy.model_pharmacy_purchase,base.group_user,1,1,1,1
+access_pharmacy_sale,Pharmacy Sale,pharmacy.model_pharmacy_sale,base.group_user,1,1,1,1
+access_pharmacy_stock_user,access.pharmacy.stock.user,model_pharmacy_stock,base.group_user,1,1,1,1
+
+access_pharmacy_cashier,Pharmacy Cashier,pharmacy.model_pharmacy_cashier,base.group_user,1,1,1,1
+
+access_salary_payment,Salary Payment,pharmacy.model_salary_payment,base.group_user,1,1,1,1
+
+access_pharmacy_cash_account,pharmacy.cash.account,model_pharmacy_cash_account,base.group_user,1,1,1,1
+access_pharmacy_cash_deposit,pharmacy.cash.deposit,model_pharmacy_cash_deposit,base.group_user,1,1,1,1
+
+access_pharmacy_expense,pharmacy.expense,model_pharmacy_expense,base.group_user,1,1,1,1
+access_pharmacy_expense_type,pharmacy.expense.type,model_pharmacy_expense_type,base.group_user,1,1,1,1
+
+access_cash_transfer_user,Cash Transfer User,model_pharmacy_cash_transfer,base.group_user,1,1,1,1
+
+access_pharmacy_employee_manager,Pharmacy Employee Manager,model_pharmacy_employee,base.group_user,1,1,1,1
+
+access_pharmacy_payment_manager,Pharmacy Payment Manager,model_pharmacy_payment,base.group_user,1,1,1,1
+
+access_pharmacy_product_user,pharmacy.product.user,model_pharmacy_product,base.group_user,1,1,1,1
+access_pharmacy_partner_manager,Pharmacy Partner Manager,model_pharmacy_partner,base.group_user,1,1,1,1
+
+access_pharmacy_finance_report_user,pharmacy.finance.report user,model_pharmacy_finance_report,,1,1,1,1
+
+access_pharmacy_cash_account_report_wizard_manager,pharmacy.cash.account.report.wizard manager,model_pharmacy_cash_account_report_wizard,pharmacy.group_pharmacy_manager,1,1,1,1
+access_pharmacy_cash_account_report_line_manager,pharmacy.cash.account.report.line manager,model_pharmacy_cash_account_report_line,pharmacy.group_pharmacy_manager,1,1,1,1
+
+access_supplier_payment_report_wizard,supplier_payment_report_wizard,model_supplier_payment_report_wizard,pharmacy.group_pharmacy_manager,1,1,1,1
+access_supplier_payment_report_line,supplier_payment_report_line,model_supplier_payment_report_line,pharmacy.group_pharmacy_manager,1,1,1,1
+
+access_customer_payment_report_wizard,Customer Payment Report Wizard,model_customer_payment_report_wizard,pharmacy.group_pharmacy_manager,1,1,1,1
+access_customer_payment_report_line,Customer Payment Report Line,model_customer_payment_report_line,pharmacy.group_pharmacy_manager,1,1,1,1
+
+access_pharmacy_purchase_report,access.pharmacy.purchase.report,model_pharmacy_purchase_report,base.group_user,1,1,1,1
+access_pharmacy_purchase_report_line,access.pharmacy.purchase.report.line,model_pharmacy_purchase_report_line,base.group_user,1,1,1,1
+
+access_pharmacy_sale_report_wizard,access.pharmacy.sale.report.wizard,model_pharmacy_sale_report_wizard,base.group_user,1,1,1,1
+access_pharmacy_sale_report_line,access.pharmacy.sale.report.line,model_pharmacy_sale_report_line,base.group_user,1,1,1,1
+
+access_expense_report_wizard_user,expense.report.wizard.user,model_expense_report_wizard,base.group_user,1,1,1,1
+access_expense_report_line_user,expense.report.line.user,model_expense_report_line,base.group_user,1,1,1,1
+
+access_cash_deposit_report_wizard_user,cash.deposit.report.wizard.user,model_cash_deposit_report_wizard,base.group_user,1,1,1,1
+access_cash_deposit_report_line_user,cash.deposit.report.line.user,model_cash_deposit_report_line,base.group_user,1,1,1,1
