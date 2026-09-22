@@ -1,0 +1,102 @@
+<odoo>
+    <template id="report_payment_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+
+                    <!-- Header -->
+                    <div style="text-align:center; border-bottom:2px solid #4CAF50; padding-bottom:10px; margin-bottom:15px;">
+                        <h1 style="color:#4CAF50; font-size:26px; margin:0;">
+                            <t t-esc="o.partner_type == 'customer' and 'Customer Payment Report' or 'Supplier Payment Report'"/>
+                        </h1>
+                        <p style="font-size:14px; color:#555;">
+                            Detailed Record of <t t-esc="o.partner_type == 'customer' and 'Customer Payments' or 'Supplier Payments'"/>
+                        </p>
+                    </div>
+
+                    <!-- Filters -->
+                    <div style="margin-bottom:15px; font-size:14px; color:#333;">
+                        <p>
+                            <strong>From:</strong> <t t-esc="o.start_date"/>
+                            <span style="margin-left:20px;"></span>
+                            <strong>To:</strong> <t t-esc="o.end_date"/>
+                        </p>
+                        <p>
+                            <strong>Branch:</strong> <t t-esc="o.branch_id.name if o.branch_id else 'All Branches'"/>
+                            <span style="margin-left:20px;"></span>
+                            <strong><t t-esc="o.partner_type == 'customer' and 'Customer' or 'Supplier'"/>:</strong>
+                            <t t-esc="o.partner_id.name if o.partner_id else 'All'"/>
+                        </p>
+                    </div>
+
+                    <!-- Payment Details -->
+                    <h3 style="color:#4CAF50; border-bottom:1px solid #ddd; padding-bottom:5px; margin-top:20px;">
+                        Payment Details
+                    </h3>
+
+                    <table style="width:100%; border-collapse:collapse; margin-top:10px; font-size:14px;">
+                        <thead>
+                            <tr style="background-color:#f5f5f5; border:1px solid #ddd;">
+                                <th style="padding:8px;">Date</th>
+                                <th style="padding:8px;">
+                                    <t t-esc="o.partner_type == 'customer' and 'Customer' or 'Supplier'"/>
+                                </th>
+                                <th style="padding:8px;">Branch</th>
+                                <th style="padding:8px;">Account</th>
+                                <th style="padding:8px; text-align:right;">Payment</th>
+                                <th style="padding:8px; text-align:right;">
+                                    <t t-esc="o.partner_type == 'customer' and 'Total Sale' or 'Total Purchase'"/>
+                                </th>
+                                <th style="padding:8px;">Note</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="o.payment_lines" t-as="line">
+                                <tr>
+                                    <td style="padding:8px; border:1px solid #ddd;"><t t-esc="line.date"/></td>
+                                    <td style="padding:8px; border:1px solid #ddd;"><t t-esc="line.partner_id.name"/></td>
+                                    <td style="padding:8px; border:1px solid #ddd;"><t t-esc="line.branch_id.name if line.branch_id else ''"/></td>
+                                    <td style="padding:8px; border:1px solid #ddd;"><t t-esc="line.account_id.account_no if line.account_id else ''"/></td>
+                                    <td style="padding:8px; border:1px solid #ddd; text-align:right;"><t t-esc="line.amount"/></td>
+                                    <td style="padding:8px; border:1px solid #ddd; text-align:right;"><t t-esc="line.total_transaction"/></td>
+                                    <td style="padding:8px; border:1px solid #ddd;"><t t-esc="line.note"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <!-- Summary -->
+                    <h3 style="color:#4CAF50; border-top:1px solid #ddd; padding-top:10px; margin-top:20px;">
+                        Summary Totals
+                    </h3>
+
+                    <table style="width:40%; border-collapse:collapse; margin-top:10px; font-size:14px;">
+                        <tbody>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;">
+                                    <t t-esc="o.partner_type == 'customer' and 'Total Sale' or 'Total Purchase'"/>
+                                </td>
+                                <td style="padding:8px; border:1px solid #ddd; text-align:right;"><t t-esc="o.total_transaction"/></td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;">Total Payment</td>
+                                <td style="padding:8px; border:1px solid #ddd; text-align:right;"><t t-esc="o.total_amount"/></td>
+                            </tr>
+                            <tr>
+                                <td style="padding:8px; border:1px solid #ddd;">Total Due</td>
+                                <td style="padding:8px; border:1px solid #ddd; text-align:right;"><t t-esc="o.total_due"/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Footer -->
+                    <div style="margin-top:30px; text-align:center; color:#888; font-size:12px;">
+                        <p>Generated on <t t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S')"/></p>
+                        <p>Powered by Poultry Farm Management System</p>
+                    </div>
+
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
