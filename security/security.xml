@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!-- Module Category -->
+    <record id="module_category_pharmacy" model="ir.module.category">
+        <field name="name">Pharmacy Management</field>
+        <field name="sequence" eval="10"/>
+    </record>
+
+    <!-- Pharmacy Manager Group -->
+    <record id="group_pharmacy_manager" model="res.groups">
+        <field name="name">Pharmacy Manager</field>
+        <field name="category_id" ref="pharmacy.module_category_pharmacy"/>
+    </record>
+
+    <!-- Pharmacy Record Officer Group -->
+    <record id="group_pharmacy_record_officer" model="res.groups">
+        <field name="name">Pharmacy Record Officer</field>
+        <field name="category_id" ref="pharmacy.module_category_pharmacy"/>
+    </record>
+
+    <!--    app menu visibility to specific group -->
+    <record id="base.menu_management" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_erp_manager')])]"/>
+    </record>
+
+    <!-- Discuss menu visible just for odoo Administrator user  -->
+    <record id="mail.menu_root_discuss" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_erp_manager')])]"/>
+    </record>
+
+    <!-- Hr Employee Root menu visible just for odoo Administrator user  -->
+    <record id="hr.menu_hr_root" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('base.group_erp_manager')])]"/>
+    </record>
+
+
+    <!-- To do Root menu visible just for odoo Administrator user  -->
+    <!--    <record id="project_todo.menu_todo_todos" model="ir.ui.menu">-->
+    <!--        <field name="groups_id" eval="[(6, 0, [ref('base.group_erp_manager')])]"/>-->
+    <!--    </record>-->
+
+
+
+    <!--    access_payment_report_wizard_user,Payment Report Wizard User,model_payment_report_wizard,poultry_farm.group_poultry_manager,1,1,1,1-->
+    <!--    access_payment_report_line_user,Payment Report Line User,model_payment_report_line,poultry_farm.group_poultry_manager,1,1,1,1-->
+
+
+<!--access_customer_payment_report_wizard,access.customer.payment.report.wizard,model_customer_payment_report_wizard,base.group_user,1,1,1,1-->
+<!--access_customer_payment_report_line,access.customer.payment.report.line,model_customer_payment_report_line,base.group_user,1,1,1,1-->
+<!---->
+<!--access_supplier_payment_report_wizard,supplier.payment.report.wizard,model_supplier_payment_report_wizard,pharmacy.group_pharmacy_manager,1,1,1,1-->
+<!--access_supplier_payment_report_line,supplier.payment.report.line,model_supplier_payment_report_line,pharmacy.group_pharmacy_manager,1,1,1,1-->
+<!---->
+<!--access_purchase_report_wizard,Purchase Report Wizard,pharmacy.model_pharmacy_purchase_report,base.group_user,1,0,1,0-->
+<!--access_purchase_report_line,Purchase Report Line,pharmacy.model_pharmacy_purchase_report_line,base.group_user,1,0,1,0-->
+<!--access_sale_report_wizard,Sale Report Wizard,pharmacy.model_pharmacy_sale_report_wizard,base.group_user,1,1,1,0-->
+<!--access_pharmacy_sale_report_wizard,pharmacy.sale.report.wizard,model_pharmacy_sale_report_wizard,base.group_user,1,1,1,1-->
+<!--access_pharmacy_purchase_wizard_erp,Pharmacy Purchase Wizard,model_pharmacy_purchase_report,base.group_user,1,1,1,1-->
+<!--access_expense_report_wizard,expense.report.wizard,model_expense_report_wizard,base.group_user,1,1,1,1-->
+<!--access_expense_report_line,expense.report.line,model_expense_report_line,base.group_user,1,1,1,1-->
+<!--access_salary_payment_wizard,salary.payment.wizard,model_salary_payment_wizard,base.group_user,1,1,1,1-->
+<!--access_salary_payment_report_line,salary.payment.report.line,model_salary_payment_report_line,base.group_user,1,1,1,1-->
+<!---->
+<!--access_sale_report_line,Sale Report Line,pharmacy.model_pharmacy_sale_report_line,base.group_user,1,0,1,0-->
+<!---->
+<!--access_pharmacy_sale_report_line_manager,Pharmacy Sale Report Line Manager,model_pharmacy_sale_report_line,pharmacy.group_pharmacy_manager,1,1,0,1-->
+<!--access_pharmacy_purchase_report_line,pharmacy.purchase.report.line,model_pharmacy_purchase_report_line,,1,1,1,1-->
+<!---->
+<!--access_dead_report_wizard_user,dead.report.wizard user,model_dead_report_wizard,base.group_user,1,1,1,1-->
+<!--access_dead_report_line_user,dead.report.line user,model_dead_report_line,base.group_user,1,1,1,1-->
+<!---->
+<!--access_cash_deposit_report_wizard_user,cash.deposit.report.wizard user,model_cash_deposit_report_wizard,,1,1,1,1-->
+<!--access_cash_deposit_report_line_user,cash.deposit.report.line user,model_cash_deposit_report_line,,1,1,1,1-->
+<!---->
+<!--access_cash_account_report_wizard,cash.account.report.wizard,model_cash_account_report_wizard,,1,1,1,1-->
+<!--access_cash_account_report_line,cash.account.report.line,model_cash_account_report_line,,1,1,1,1-->
+
+
+</odoo>
