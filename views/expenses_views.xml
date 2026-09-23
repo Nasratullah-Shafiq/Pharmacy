@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ============================== -->
+    <!-- TREE VIEW -->
+    <!-- ============================== -->
+    <record id="view_pharmacy_expense_tree" model="ir.ui.view">
+        <field name="name">pharmacy.expense.tree</field>
+        <field name="model">pharmacy.expense</field>
+        <field name="arch" type="xml">
+            <tree string="Expenses">
+                <field name="name"/>
+                <field name="cash_account_id"/>
+                <field name="expense_type_id"/>
+                <field name="amount"/>
+                <field name="date"/>
+                <field name="user_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- ============================== -->
+    <!-- FORM VIEW -->
+    <!-- ============================== -->
+    <record id="view_pharmacy_expense_form" model="ir.ui.view">
+        <field name="name">pharmacy.expense.form</field>
+        <field name="model">pharmacy.expense</field>
+        <field name="arch" type="xml">
+            <form string="Expense">
+                <header>
+                    <button name="action_expense_done"
+                            string="Mark as Expense Done"
+                            type="object"
+                            class="btn-primary"
+                            invisible="expense_status != 'new'"/>
+
+                    <field name="expense_status"
+                           widget="statusbar"
+                           statusbar_visible="new,done"/>
+                </header>
+
+                <sheet>
+                    <field name="expense_status" invisible="1"/>
+                    <widget name="web_ribbon"
+                            title="New Expense"
+                            bg_color="bg-warning"
+                            invisible="expense_status != 'new'"/>
+                    <widget name="web_ribbon"
+                            title="Expense Done"
+                            bg_color="bg-success"
+                            invisible="expense_status != 'done'"/>
+
+                    <!-- Expense Details -->
+                    <group string="Expense Details">
+                        <field name="name" string="Description"/>
+                        <field name="expense_type_id"/>
+                        <field name="amount"/>
+                        <field name="date"/>
+                        <field name="user_id" readonly="1"/>
+                        <field name="cash_account_id" readonly="1"/>
+                        <field name="cash_balance" readonly="1"/>
+                    </group>
+
+                    <!-- Notes / Additional Information -->
+                    <group string="Notes">
+                        <field name="note"/>
+                    </group>
+                </sheet>
+
+                <!-- Chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+
+    <!-- ============================== -->
+    <!-- PIVOT VIEW -->
+    <!-- ============================== -->
+    <record id="view_pharmacy_expense_pivot" model="ir.ui.view">
+        <field name="name">pharmacy.expense.pivot</field>
+        <field name="model">pharmacy.expense</field>
+        <field name="arch" type="xml">
+            <pivot string="Expense Analysis">
+                <field name="expense_type_id" type="col"/>
+                <field name="amount" type="measure"/>
+                <field name="date" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- ============================== -->
+    <!-- GRAPH VIEW -->
+    <!-- ============================== -->
+    <record id="view_pharmacy_expense_graph" model="ir.ui.view">
+        <field name="name">pharmacy.expense.graph</field>
+        <field name="model">pharmacy.expense</field>
+        <field name="arch" type="xml">
+            <graph string="Expenses" type="bar">
+                <field name="date" type="row"/>
+                <field name="amount" type="measure"/>
+                <field name="expense_type_id" type="col"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- ============================== -->
+    <!-- SEARCH VIEW -->
+    <!-- ============================== -->
+    <record id="view_pharmacy_expense_search" model="ir.ui.view">
+        <field name="name">pharmacy.expense.search</field>
+        <field name="model">pharmacy.expense</field>
+        <field name="arch" type="xml">
+            <search string="Expenses">
+
+                <!-- Quick search fields -->
+                <field name="expense_type_id"/>
+                <field name="user_id"/>
+                <field name="date"/>
+
+                <!-- Search panel -->
+                <searchpanel>
+                    <field name="expense_type_id" string="Expense Type" icon="fa-list"/>
+                    <field name="expense_year" string="Year" select="1" icon="fa-calendar"/>
+                    <field name="expense_month" string="Month" select="1" icon="fa-calendar"/>
+                </searchpanel>
+
+            </search>
+        </field>
+    </record>
+
+    <!-- ============================== -->
+    <!-- ACTION -->
+    <!-- ============================== -->
+    <record id="action_pharmacy_expense" model="ir.actions.act_window">
+        <field name="name">Expenses</field>
+        <field name="res_model">pharmacy.expense</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="search_view_id" ref="view_pharmacy_expense_search"/>
+    </record>
+
+    <!-- ============================== -->
+    <!-- MENU ITEM -->
+    <!-- ============================== -->
+    <menuitem id="menu_pharmacy_expense"
+              name="Expenses"
+              parent="menu_pharmacy_finance"
+              action="action_pharmacy_expense"/>
+
+</odoo>
