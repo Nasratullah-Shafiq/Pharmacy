@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Action -->
+    <record id="action_pharmacy_cashier" model="ir.actions.act_window">
+        <field name="name">Cashiers</field>
+        <field name="res_model">pharmacy.cashier</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create a new cashier to start recording cash balances.
+            </p>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_pharmacy_cashier_tree" model="ir.ui.view">
+        <field name="name">pharmacy.cashier.tree</field>
+        <field name="model">pharmacy.cashier</field>
+        <field name="arch" type="xml">
+            <tree string="Cashiers" create="true" edit="true">
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View with Chatter -->
+    <record id="view_pharmacy_cashier_form" model="ir.ui.view">
+        <field name="name">pharmacy.cashier.form</field>
+        <field name="model">pharmacy.cashier</field>
+        <field name="arch" type="xml">
+            <form string="Cashier" create="true" edit="true">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="phone"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="email"/>
+                        </group>
+                    </group>
+                </sheet>
+
+                <!-- Chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action Window -->
+    <record id="action_window_pharmacy_cashier" model="ir.actions.act_window">
+        <field name="name">Cashiers</field>
+        <field name="res_model">pharmacy.cashier</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_pharmacy_cashier_tree"/>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_pharmacy_cashier_action"
+              name="Cashier"
+              parent="menu_pharmacy_finance"
+              action="action_window_pharmacy_cashier"
+              groups="pharmacy.group_pharmacy_manager"
+              sequence="20"/>
+
+</odoo>
