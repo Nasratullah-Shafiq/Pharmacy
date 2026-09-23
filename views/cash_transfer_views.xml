@@ -1,0 +1,128 @@
+<odoo>
+    <!-- Cash Transfer Action -->
+    <record id="action_cash_transfer" model="ir.actions.act_window">
+        <field name="name">Cash Transfers</field>
+        <field name="res_model">pharmacy.cash.transfer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create and confirm cash transfers from Main Account to Expense/Salary Accounts.
+            </p>
+        </field>
+    </record>
+
+    <!-- Cash Transfer Menu -->
+    <menuitem id="menu_cash_transfer"
+              name="Cash Transfers"
+              parent="menu_pharmacy_finance"
+              action="action_cash_transfer"
+              groups="pharmacy.group_pharmacy_manager"
+              sequence="10"/>
+
+    <!-- Tree View -->
+    <record id="view_cash_transfer_tree" model="ir.ui.view">
+        <field name="name">pharmacy.cash.transfer.tree</field>
+        <field name="model">pharmacy.cash.transfer</field>
+        <field name="arch" type="xml">
+            <tree string="Cash Transfers">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="from_account_id"/>
+                <field name="from_account_type"/>
+                <field name="from_currency_type"/>
+                <field name="to_account_id"/>
+                <field name="to_account_type"/>
+                <field name="to_currency_type"/>
+                <field name="amount"/>
+                <field name="status" widget="badge"
+                       decoration-info="status=='new_transfer'"
+                       decoration-success="status=='transfer_done'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_cash_transfer_form" model="ir.ui.view">
+        <field name="name">pharmacy.cash.transfer.form</field>
+        <field name="model">pharmacy.cash.transfer</field>
+        <field name="arch" type="xml">
+            <form string="Cash Transfer">
+                <header>
+                    <button name="action_transfer_done"
+                            string="Mark as Transfer Done"
+                            type="object"
+                            class="btn-primary"
+                            invisible="status != 'new_transfer'"/>
+
+                    <field name="status"
+                           widget="statusbar"
+                           statusbar_visible="new_transfer,transfer_done"/>
+                </header>
+
+                <sheet>
+                    <field name="status" invisible="1"/>
+                    <widget name="web_ribbon"
+                            title="New Transfer"
+                            bg_color="bg-info"
+                            invisible="status != 'new_transfer'"/>
+
+                    <widget name="web_ribbon"
+                            title="Transfer Done"
+                            bg_color="bg-success"
+                            invisible="status != 'transfer_done'"/>
+
+                    <group string="Transfer Information">
+                        <field name="name"/>
+                        <field name="date"/>
+                        <field name="amount"/>
+                        <field name="note"/>
+                    </group>
+
+                    <group>
+                        <group string="From Account (Source)">
+                            <field name="from_account_type"/>
+                            <field name="from_account_id"
+                                   domain="[('account_type', '=', from_account_type)]"/>
+                            <field name="from_currency_type"/>
+                            <field name="from_account_balance"/>
+                        </group>
+                        <group string="To Account (Destination)">
+                            <field name="to_account_type"/>
+                            <field name="to_account_id"
+                                   domain="[('account_type', '=', to_account_type)]"/>
+                            <field name="to_currency_type"/>
+                            <field name="to_account_balance"/>
+                        </group>
+                    </group>
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_pharmacy_cash_transfer_search" model="ir.ui.view">
+        <field name="name">pharmacy.cash.transfer.search</field>
+        <field name="model">pharmacy.cash.transfer</field>
+        <field name="arch" type="xml">
+            <search string="Search Cash Transfers">
+                <field name="date"/>
+
+                <group expand="0" string="Group By">
+                    <filter name="group_by_date" string="Date" context="{'group_by': 'date'}"/>
+                    <filter name="group_by_from_account" string="From Account" context="{'group_by': 'from_account_id'}"/>
+                    <filter name="group_by_to_account" string="To Account" context="{'group_by': 'to_account_id'}"/>
+                </group>
+
+                <searchpanel>
+                    <field name="transfer_year" string="Year" select="1" icon="fa-calendar"/>
+                    <field name="transfer_month" string="Month" select="1" icon="fa-calendar"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+</odoo>
