@@ -1,0 +1,37 @@
+<!-- pharmacy_management/views/menu.xml -->
+<odoo>
+    <!-- Root Menu -->
+    <menuitem id="menu_pharmacy" name="Pharmacy"/>
+
+    <!-- Sub Menus -->
+    <menuitem id="pharmacy_root_menu" name="Pharmacy" sequence="1"/>
+
+    <menuitem id="menu_pharmacy_setup" name="Setup" parent="menu_pharmacy" sequence="25"/>
+    <menuitem id="menu_pharmacy_hr" name="HR" parent="menu_pharmacy" sequence="5" groups="pharmacy.group_pharmacy_manager"/>
+    <menuitem id="menu_pharmacy_customer" name="Customer" parent="menu_pharmacy" sequence="10"/>
+    <menuitem id="menu_pharmacy_supplier" name="Supplier" parent="menu_pharmacy" sequence="10"/>
+    <menuitem id="menu_pharmacy_finance" name="Finance" parent="menu_pharmacy" sequence="15"/>
+    <menuitem id="menu_pharmacy_accounts" name="Accounts" parent="menu_pharmacy" sequence="20" groups="pharmacy.group_pharmacy_manager"/>
+
+    <!-- Finance Report Menus -->
+    <menuitem id="menu_finance_report" name="Finance Report" sequence="20" parent="menu_pharmacy" groups="pharmacy.group_pharmacy_manager"/>
+
+    <menuitem id="menu_finance_reports"
+              name="Finance Reports"
+              parent="menu_finance_report"
+              sequence="10"/>
+
+    <record id="action_finance_report_wizard" model="ir.actions.act_window">
+        <field name="name">Finance Report Wizard</field>
+        <field name="res_model">pharmacy.finance.report</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_finance_report_wizard"
+              name="Generate Finance Report"
+              parent="menu_finance_reports"
+              action="action_finance_report_wizard"
+              sequence="5"/>
+
+</odoo>
