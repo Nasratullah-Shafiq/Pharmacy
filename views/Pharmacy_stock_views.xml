@@ -1,0 +1,133 @@
+<odoo>
+    <!-- =========================
+         Pharmacy Stock Tree Views
+         Three views: Medicine, Consumable, Equipment
+    ========================= -->
+
+    <!-- Medicine Stock Tree View -->
+    <record id="view_pharmacy_stock_medicine_tree" model="ir.ui.view">
+        <field name="name">pharmacy.stock.medicine.tree</field>
+        <field name="model">pharmacy.stock</field>
+        <field name="arch" type="xml">
+            <tree string="Medicine Stock" create="false" edit="false">
+                <field name="product_id"/>
+                <field name="uom_id"/>
+                <field name="total_quantity"/>
+                <field name="cost"/>
+                <field name="cost_amount"/>
+                <field name="currency_id"/>
+                <field name="last_updated" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Consumable Stock Tree View -->
+    <record id="view_pharmacy_stock_consumable_tree" model="ir.ui.view">
+        <field name="name">pharmacy.stock.consumable.tree</field>
+        <field name="model">pharmacy.stock</field>
+        <field name="arch" type="xml">
+            <tree string="Consumable Stock" create="false" edit="false">
+                <field name="product_id"/>
+                <field name="uom_id"/>
+                <field name="total_quantity"/>
+                <field name="cost"/>
+                <field name="cost_amount"/>
+                <field name="currency_id"/>
+                <field name="last_updated" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Equipment Stock Tree View -->
+    <record id="view_pharmacy_stock_equipment_tree" model="ir.ui.view">
+        <field name="name">pharmacy.stock.equipment.tree</field>
+        <field name="model">pharmacy.stock</field>
+        <field name="arch" type="xml">
+            <tree string="Equipment Stock" create="false" edit="false">
+                <field name="product_id"/>
+                <field name="uom_id"/>
+                <field name="total_quantity"/>
+                <field name="cost"/>
+                <field name="cost_amount"/>
+                <field name="currency_id"/>
+                <field name="last_updated" readonly="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- =========================
+         Search View (shared for all menus)
+    ========================= -->
+    <record id="view_pharmacy_stock_search" model="ir.ui.view">
+        <field name="name">pharmacy.stock.search</field>
+        <field name="model">pharmacy.stock</field>
+        <field name="arch" type="xml">
+            <search string="Search Stock">
+                <field name="product_id"/>
+                <searchpanel>
+                    <field name="product_id" string="Product" icon="fa-tags"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <!-- =========================
+         Actions filtered by product_type
+    ========================= -->
+
+    <!-- Medicine Stock Action -->
+    <record id="action_pharmacy_medicine" model="ir.actions.act_window">
+        <field name="name">Medicine Stock</field>
+        <field name="res_model">pharmacy.stock</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_pharmacy_stock_medicine_tree"/>
+        <field name="domain">[('product_id.product_type','=','medicine')]</field>
+        <field name="search_view_id" ref="view_pharmacy_stock_search"/>
+    </record>
+
+    <!-- Consumable Stock Action -->
+    <record id="action_pharmacy_consumable" model="ir.actions.act_window">
+        <field name="name">Consumable Stock</field>
+        <field name="res_model">pharmacy.stock</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_pharmacy_stock_consumable_tree"/>
+        <field name="domain">[('product_id.product_type','=','consumable')]</field>
+        <field name="search_view_id" ref="view_pharmacy_stock_search"/>
+    </record>
+
+    <!-- Equipment Stock Action -->
+    <record id="action_pharmacy_equipment" model="ir.actions.act_window">
+        <field name="name">Equipment Stock</field>
+        <field name="res_model">pharmacy.stock</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_pharmacy_stock_equipment_tree"/>
+        <field name="domain">[('product_id.product_type','=','equipment')]</field>
+        <field name="search_view_id" ref="view_pharmacy_stock_search"/>
+    </record>
+
+    <!-- =========================
+         Menus
+    ========================= -->
+
+    <!-- Root Menu -->
+    <menuitem id="menu_pharmacy_stock_root" name="Pharmacy Stock" parent="menu_pharmacy"/>
+
+    <!-- Medicine Submenu -->
+    <menuitem id="menu_pharmacy_stock_medicine"
+              name="Medicine Stock"
+              parent="menu_pharmacy_stock_root"
+              action="action_pharmacy_medicine"/>
+
+    <!-- Consumable Submenu -->
+    <menuitem id="menu_pharmacy_stock_consumable"
+              name="Consumable Stock"
+              parent="menu_pharmacy_stock_root"
+              action="action_pharmacy_consumable"/>
+
+    <!-- Equipment Submenu -->
+    <menuitem id="menu_pharmacy_stock_equipment"
+              name="Equipment Stock"
+              parent="menu_pharmacy_stock_root"
+              action="action_pharmacy_equipment"/>
+
+</odoo>
