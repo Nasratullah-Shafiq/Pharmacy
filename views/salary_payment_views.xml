@@ -1,0 +1,276 @@
+<odoo>
+    <!-- FORM VIEW -->
+    <record id="view_salary_payment_form" model="ir.ui.view">
+        <field name="name">salary.payment.form</field>
+        <field name="model">salary.payment</field>
+        <field name="arch" type="xml">
+            <form string="Employee Salary Payment">
+                <header>
+                    <field name="payment_status" widget="statusbar"
+                           statusbar_visible="paid,partially_paid,not_paid"
+                           statusbar_colors="paid:green;partially_paid:orange;not_paid:red"/>
+                </header>
+                <sheet>
+                    <!--  RIBBONS GO HERE  -->
+                    <widget name="web_ribbon"
+                            title="Not Paid"
+                            bg_color="bg-danger"
+                            invisible="payment_status != 'not_paid'"/>
+
+                    <widget name="web_ribbon"
+                            title="Partially Paid"
+                            bg_color="bg-warning"
+                            invisible="payment_status != 'partially_paid'"/>
+
+                    <widget name="web_ribbon"
+                            title="Paid"
+                            bg_color="bg-success"
+                            invisible="payment_status != 'paid'"/>
+                    <group>
+                        <field name="employee_id"/>
+                        <field name="salary_date"/>
+                        <field name="currency_id"/>
+                    </group>
+
+                    <group>
+                        <field name="total_salary" readonly="1"/>
+                        <div>
+                            <span class="o_form_label">
+                                <field name="paid_month_label" nolabel="1"/>
+                            </span>
+                        </div>
+                        <field name="paid_this_month_display" nolabel="1"/>
+                        <field name="amount"/>
+                        <field name="amount_remaining" readonly="1"/>
+                        <!--                        <field name="payment_status" readonly="1"/>-->
+                        <!-- ⭐ Your Badge Here -->
+                        <field name="payment_status"
+                               widget="badge"
+                               decoration-success="payment_status == 'paid'"
+                               decoration-warning="payment_status == 'partially_paid'"
+                               decoration-danger="payment_status == 'not_paid'"
+                               readonly="1"/>
+                    </group>
+
+                    <group>
+                        <field name="notes"/>
+                    </group>
+                </sheet>
+
+                <!-- Chatter for Odoo 17 -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- TREE VIEW -->
+    <record id="view_salary_payment_tree" model="ir.ui.view">
+        <field name="name">salary.payment.tree</field>
+        <field name="model">salary.payment</field>
+        <field name="arch" type="xml">
+            <tree string="Employee Salary Payments">
+                <field name="employee_id"/>
+                <field name="salary_date"/>
+                <field name="total_salary"/>
+                <field name="amount"/>
+                <field name="amount_remaining"/>
+
+                <field name="payment_status" widget="badge"
+                       decoration-success="payment_status=='paid'"
+                       decoration-warning="payment_status=='partially_paid'"
+                       decoration-danger="payment_status=='not_paid'"/>
+
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- Search view for Salary Payment -->
+    <record id="view_salary_payment_search" model="ir.ui.view">
+        <field name="name">salary.payment.search</field>
+        <field name="model">salary.payment</field>
+        <field name="arch" type="xml">
+            <search string="Salary Payments">
+                <!-- Quick search fields -->
+                <field name="employee_id"/>
+                <field name="salary_date"/>
+
+                <!-- Optional filters (uncomment if needed) -->
+                <!--
+                <filter string="This Month" name="filter_this_month"
+                    domain="[('salary_date','>=', (context_today().replace(day=1))),
+                             ('salary_date','<=', context_today())]"/>
+                -->
+
+                <!-- Search panel (left sidebar) -->
+                <searchpanel>
+                    <!-- Employee list -->
+                    <field name="employee_id" string="Employees"/>
+
+                    <!-- Payment Status -->
+                    <field name="payment_status" string="Payment Status"/>
+
+                    <field name="salary_year" string="Year" select="1"/>
+                    <field name="salary_month" string="Month" select="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+
+    <!-- KANBAN VIEW -->
+    <record id="view_salary_payment_kanban" model="ir.ui.view">
+        <field name="name">salary.payment.kanban</field>
+        <field name="model">salary.payment</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_example" quick_create="true">
+
+                <!-- REQUIRED: preload fields for kanban logic -->
+                <field name="employee_id"/>
+                <field name="salary_month"/>
+                <field name="salary_date"/>
+                <field name="total_salary"/>
+                <field name="amount"/>
+                <field name="amount_remaining"/>
+                <field name="payment_status"/>
+
+                <templates>
+                    <t t-name="kanban-box">
+
+                        <div class="oe_kanban_global_click o_kanban_card card-shadow p-3 mb-3"
+                             style="border-radius: 12px; transition: transform 0.2s; cursor: pointer; font-size:16px;">
+
+                            <!-- Header: Employee Name + Salary Month -->
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <strong class="h4 text-primary">
+                                    <field name="employee_id"/>
+                                </strong>
+
+                                <span class="badge bg-info text-white" style="font-size:14px;">
+                                    <i class="fa fa-calendar me-1"></i>
+                                    <field name="salary_month"/>
+                                </span>
+                            </div>
+
+                            <!-- Body Details -->
+                            <div class="o_kanban_details mb-2" style="line-height:1.6;">
+
+                                <!-- Salary Date -->
+                                <div>
+                                    <i class="fa fa-calendar-check text-secondary"></i>
+                                    Salary Date:
+                                    <field name="salary_date"/>
+                                </div>
+
+                                <!-- Total Salary -->
+                                <div>
+                                    <i class="fa fa-usd text-primary"></i>
+
+                                    Total Salary:
+                                    <span class="badge bg-primary text-white" style="font-size:14px;">
+                                        <field name="total_salary"/>
+                                    </span>
+                                </div>
+
+                                <!-- Paid Amount -->
+                                <div>
+                                    <i class="fa fa-check text-success"></i>
+
+
+                                    Paid Salary:
+                                    <span class="badge bg-success text-white" style="font-size:14px;">
+                                        <field name="amount"/>
+                                    </span>
+                                </div>
+
+                                <!-- Remaining Amount -->
+                                <div>
+                                    <i class="fa fa-exclamation-circle text-danger"></i>
+                                    Remaining:
+                                    <span class="badge bg-danger text-white" style="font-size:14px;">
+                                        <field name="amount_remaining"/>
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <!-- Footer: Payment Status -->
+                            <div class="mt-3">
+                                <t t-if="record.payment_status.raw_value == 'paid'">
+                                    <span class="badge bg-success text-white">
+                                        <i class="fa fa-check-circle"></i>
+                                        Paid
+                                    </span>
+
+                                </t>
+
+                                <t t-if="record.payment_status.raw_value == 'partially_paid'">
+                                    <span class="badge bg-warning text-dark">
+                                        <i class="fa fa-exclamation-circle"></i>
+                                        Partially Paid
+                                    </span>
+                                </t>
+
+                                <t t-if="record.payment_status.raw_value == 'not_paid'">
+                                    <span class="badge bg-danger text-white">
+                                        <i class="fa fa-times-circle"></i>
+                                        Not Paid
+                                    </span>
+
+                                </t>
+                            </div>
+
+                        </div>
+
+                    </t>
+                </templates>
+
+            </kanban>
+
+
+        </field>
+    </record>
+
+
+    <!-- GRAPH VIEW -->
+    <record id="view_salary_payment_graph" model="ir.ui.view">
+        <field name="name">salary.payment.graph</field>
+        <field name="model">salary.payment</field>
+        <field name="arch" type="xml">
+            <graph string="Salary Payments" type="bar">
+                <field name="amount" type="measure"/>
+                <field name="employee_id" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- PIVOT VIEW -->
+    <record id="view_salary_payment_pivot" model="ir.ui.view">
+        <field name="name">salary.payment.pivot</field>
+        <field name="model">salary.payment</field>
+        <field name="arch" type="xml">
+            <pivot string="Salary Payments Pivot">
+                <field name="employee_id" type="row"/>
+                <field name="salary_date" type="col"/>
+                <field name="amount" type="measure"/>
+                <field name="amount_remaining" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_salary_payment" model="ir.actions.act_window">
+        <field name="name">Employee Salary Payments</field>
+        <field name="res_model">salary.payment</field>
+        <field name="view_mode">tree,kanban,form,graph,pivot</field>
+    </record>
+
+    <!-- MENU -->
+    <!--    <menuitem id="menu_salary_payment_root" name="Salaries" sequence="20"/>-->
+    <menuitem id="menu_salary_payment" name="Salary Payments" parent="menu_pharmacy_hr"
+              action="action_salary_payment"/>
+</odoo>
