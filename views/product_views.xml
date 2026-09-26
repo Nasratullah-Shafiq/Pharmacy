@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Tree View -->
+    <record id="view_pharmacy_product_tree" model="ir.ui.view">
+        <field name="name">pharmacy.product.tree</field>
+        <field name="model">pharmacy.product</field>
+        <field name="arch" type="xml">
+            <tree string="Products">
+                <field name="name"/>
+                <field name="product_type"/>
+                <field name="currency_id"/>
+                <field name="purchase_cost"/>
+                <field name="sale_price"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- Form View -->
+    <record id="view_pharmacy_product_form" model="ir.ui.view">
+        <field name="name">pharmacy.product.form</field>
+        <field name="model">pharmacy.product</field>
+        <field name="arch" type="xml">
+            <form string="Product">
+                <header>
+                    <button name="action_product_saved"
+                            string="Save Item"
+                            type="object"
+                            class="btn-primary"
+                            invisible="product_status != 'new'"/>
+                    <field name="product_status" widget="statusbar" statusbar_visible="new,saved"/>
+                </header>
+
+                <sheet>
+                    <!--  RIBBONS GO HERE  -->
+                    <widget name="web_ribbon"
+                            title="New Product"
+                            bg_color="bg-info"
+                            invisible="product_status != 'new'"/>
+
+                    <widget name="web_ribbon"
+                            title="Product Saved"
+                            bg_color="bg-success"
+                            invisible="product_status != 'saved'"/>
+
+                    <group>
+                        <field name="name"/>
+                        <field name="product_type"/>
+                        <field name="currency_id"/>
+                        <field name="purchase_cost"/>
+                        <field name="sale_price"/>
+                        <field name="description"/>
+                    </group>
+
+                </sheet>
+
+                <!-- chatter -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_pharmacy_product" model="ir.actions.act_window">
+        <field name="name">Products</field>
+        <field name="res_model">pharmacy.product</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+            Create your first Product
+        </p>
+        <p>
+            Products represent items like Medicines, Syrups, Tablets, Capsules, etc.
+            You can define purchase cost and sale price.
+        </p>
+    </field>
+    </record>
+
+
+    <!-- Menu -->
+    <menuitem
+            id="menu_pharmacy_product"
+            name="Products"
+            parent="menu_pharmacy_setup"
+            action="action_pharmacy_product"
+            sequence="10"/>
+
+
+</odoo>
