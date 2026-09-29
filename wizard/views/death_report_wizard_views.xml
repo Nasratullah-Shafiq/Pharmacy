@@ -1,0 +1,55 @@
+<odoo>
+    <record id="view_dead_report_wizard" model="ir.ui.view">
+        <field name="name">dead.report.wizard.form</field>
+        <field name="model">dead.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Poultry Death Report Wizard">
+                <sheet>
+                    <group>
+                        <field name="branch_id"/>
+                        <field name="farm_id"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                    </group>
+
+                    <group string="Summary">
+                        <field name="total_deaths" readonly="1"/>
+                    </group>
+
+                    <group string="Death Details">
+                        <field name="death_lines" readonly="1" string="">
+                            <tree>
+                                <field name="date"/>
+                                <field name="branch_id"/>
+                                <field name="farm_id"/>
+<!--                                <field name="item_type_id"/>-->
+                                <field name="quantity"/>
+                                <field name="reason"/>
+                                <field name="description"/>
+                            </tree>
+                        </field>
+                    </group>
+
+                    <footer>
+                        <button string="Generate Report" type="object" name="generate_report" class="btn-primary"/>
+                        <button string="Print PDF" type="object" name="print_pdf_report" class="btn-secondary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_dead_report_wizard" model="ir.actions.act_window">
+        <field name="name">Poultry Death Report</field>
+        <field name="res_model">dead.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_dead_report"
+              name="Death Report"
+              parent="menu_finance_reports"
+              action="action_dead_report_wizard"
+              sequence="20"/>
+</odoo>
