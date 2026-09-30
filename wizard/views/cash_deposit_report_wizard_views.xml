@@ -1,0 +1,70 @@
+<odoo>
+
+    <record id="view_cash_deposit_report_wizard" model="ir.ui.view">
+        <field name="name">cash.deposit.report.wizard.form</field>
+        <field name="model">cash.deposit.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Cash Deposit Report">
+                <sheet>
+
+                    <h2>Cash Deposit Report</h2>
+
+                    <group>
+                        <field name="cash_account_id"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                    </group>
+
+                    <group string="Summary">
+                        <field name="total_afn" readonly="1"/>
+                        <field name="total_usd" readonly="1"/>
+                        <field name="total_kld" readonly="1"/>
+                    </group>
+
+                    <group string="Deposit Details">
+                        <field name="deposit_lines" readonly="1" string="">
+                            <tree create="0" edit="0" delete="0">
+                                <field name="date"/>
+                                <field name="cash_account_id"/>
+                                <field name="account_type"/>
+                                <field name="currency_id"/>
+                                <field name="amount"/>
+                                <field name="user_id"/>
+                                <field name="note"/>
+                            </tree>
+                        </field>
+                    </group>
+
+                    <footer>
+                        <button name="generate_report"
+                                string="Generate Report"
+                                type="object"
+                                class="btn-primary"/>
+                        <button name="print_pdf_report"
+                                string="Print PDF"
+                                type="object"
+                                class="btn-secondary"/>
+                        <button string="Cancel"
+                                special="cancel"
+                                class="btn-secondary"/>
+                    </footer>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_cash_deposit_report_wizard" model="ir.actions.act_window">
+        <field name="name">Cash Deposit Report</field>
+        <field name="res_model">cash.deposit.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_cash_deposit_report"
+              name="Cash Deposit Report"
+              parent="menu_finance_reports"
+              action="action_cash_deposit_report_wizard"
+              sequence="20"/>
+
+</odoo>
