@@ -17,7 +17,6 @@
             <field name="name">Najib</field>
             <field name="email">najib@example.com</field>
         </record>
-
         <record id="partner_rasheed" model="res.partner">
             <field name="name">Rasheed</field>
             <field name="email">rasheed@example.com</field>
