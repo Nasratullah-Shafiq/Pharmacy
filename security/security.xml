@@ -43,7 +43,6 @@
     <!--    access_payment_report_wizard_user,Payment Report Wizard User,model_payment_report_wizard,poultry_farm.group_poultry_manager,1,1,1,1-->
     <!--    access_payment_report_line_user,Payment Report Line User,model_payment_report_line,poultry_farm.group_poultry_manager,1,1,1,1-->
 
-
 <!--access_customer_payment_report_wizard,access.customer.payment.report.wizard,model_customer_payment_report_wizard,base.group_user,1,1,1,1-->
 <!--access_customer_payment_report_line,access.customer.payment.report.line,model_customer_payment_report_line,base.group_user,1,1,1,1-->
 <!---->
