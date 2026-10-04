@@ -100,7 +100,6 @@ class PharmacyCashAccount(models.Model):
 
         return super().create(vals)
 
-
 # ==========================================
 # Pharmacy Cash Deposit
 # ==========================================
