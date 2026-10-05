@@ -10,7 +10,6 @@ class PharmacyCashTransfer(models.Model):
     _description = 'Cash Transfer'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-
     # ---------------------------- BASIC DETAILS -------------------------------
     # Unique reference for the cash transfer, automatically generated via sequence
     name = fields.Char(
