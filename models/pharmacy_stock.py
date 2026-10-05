@@ -1,20 +1,7 @@
 from odoo import models, fields, api
 from odoo.exceptions import UserError
 
-#
-# class PoultryProduct(models.Model):
-#     _name = 'poultry.product'
-#     _description = 'Product'
-#     _rec_name = 'name'
-#     _inherit = ['mail.thread', 'mail.activity.mixin']  # Enable chatter
-#
-#     name = fields.Char(string="Item", required=True)
-#     purchase_cost = fields.Monetary(
-#         string="Purchase Cost",
-#         currency_field='currency_id',
-#         tracking=True,
-#         help="Average or last purchase cost"
-#     )
+
 #
 #     sale_price = fields.Monetary(
 #         string="Sale Price",
