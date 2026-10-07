@@ -10,4 +10,3 @@ class PharmacyCashier(models.Model):
     email = fields.Char("Email")
 
     active = fields.Boolean(default=True)
-
