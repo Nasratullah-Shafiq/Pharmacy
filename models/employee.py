@@ -94,3 +94,4 @@ class PharmacyEmployee(models.Model):
             new_number = '001'
 
         return f'{prefix}-{new_number}'
+    
