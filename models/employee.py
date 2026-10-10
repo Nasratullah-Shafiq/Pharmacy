@@ -83,6 +83,7 @@ class PharmacyEmployee(models.Model):
             order='id desc',
             limit=1
         )
+        
         if last_employee and last_employee.employee_code:
             try:
                 last_number = int(last_employee.employee_code.split('-')[1])
