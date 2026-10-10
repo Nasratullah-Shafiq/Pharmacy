@@ -13,8 +13,6 @@
 #     _order = 'date desc'
 #
 #     # PARTNER INFO
-#
-#     partner_type = fields.Selection(related='partner_id.partner_type', store=True)
 
 #
 #     # CASH ACCOUNT

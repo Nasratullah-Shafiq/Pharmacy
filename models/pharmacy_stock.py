@@ -14,7 +14,7 @@ from odoo.exceptions import UserError
 #         string="Currency",
 #         default=lambda self: self.env.company.currency_id,
 #         required=True
-#     )
+
 #
 #     description = fields.Text(string="Description")
 #     product_status = fields.Selection(

@@ -103,6 +103,7 @@ class PharmacyCashAccount(models.Model):
 # ==========================================
 # Pharmacy Cash Deposit
 # ==========================================
+
 class PharmacyCashDeposit(models.Model):
     _name = "pharmacy.cash.deposit"
     _description = "Cash Deposit to Pharmacy Account"

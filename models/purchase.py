@@ -14,7 +14,6 @@ class PharmacyPurchase(models.Model):
         tracking=True
     )
 
-
     product_id = fields.Many2one(
         'pharmacy.product',
         string="Product",
