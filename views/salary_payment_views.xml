@@ -10,6 +10,7 @@
                            statusbar_visible="paid,partially_paid,not_paid"
                            statusbar_colors="paid:green;partially_paid:orange;not_paid:red"/>
                 </header>
+                
                 <sheet>
                     <!--  RIBBONS GO HERE  -->
                     <widget name="web_ribbon"

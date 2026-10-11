@@ -10,6 +10,7 @@
                         <field name="account_type"/>
                     </group>
 
+
                     <group string="Totals By Currency">
                         <group>
                             <field name="total_afn" readonly="1"/>

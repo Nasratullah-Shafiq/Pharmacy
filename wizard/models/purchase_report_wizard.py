@@ -12,6 +12,7 @@ class PharmacyPurchaseReport(models.TransientModel):
     start_date = fields.Date(string="Start Date", required=True)
     end_date = fields.Date(string="End Date", required=True)
 
+
     # -------------------------------------------------
     # Totals
     # -------------------------------------------------

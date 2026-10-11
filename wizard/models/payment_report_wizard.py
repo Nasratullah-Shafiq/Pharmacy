@@ -14,6 +14,7 @@ class PaymentReportWizard(models.TransientModel):
     customer_id = fields.Many2one('poultry.partner', string="Customer")
     supplier_id = fields.Many2one('poultry.partner', string="Supplier")
 
+
     total_amount = fields.Monetary(string="Total Paid", readonly=True)
     total_transaction = fields.Monetary(string="Total Transaction", readonly=True)
     total_due = fields.Monetary(string="Total Due", readonly=True)

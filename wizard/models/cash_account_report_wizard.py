@@ -9,6 +9,7 @@ class PharmacyCashAccountReportWizard(models.TransientModel):
     _name = 'pharmacy.cash.account.report.wizard'
     _description = 'Pharmacy Cash Account Report Wizard'
 
+
     # Filter by account type
     account_type = fields.Selection([
         ('main', 'Main Account'),
