@@ -3,6 +3,7 @@
          Pharmacy Stock Tree Views
          Three views: Medicine, Consumable, Equipment
     ========================= -->
+    
 
     <!-- Medicine Stock Tree View -->
     <record id="view_pharmacy_stock_medicine_tree" model="ir.ui.view">

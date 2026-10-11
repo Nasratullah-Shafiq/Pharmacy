@@ -12,7 +12,6 @@
 #     _inherit = ['mail.thread', 'mail.activity.mixin']
 #     _order = 'date desc'
 #
-#     # PARTNER INFO
 
 #
 #     # CASH ACCOUNT

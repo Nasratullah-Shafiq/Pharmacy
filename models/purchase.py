@@ -13,6 +13,7 @@ class PharmacyPurchase(models.Model):
         default=fields.Date.today,
         tracking=True
     )
+    
 
     product_id = fields.Many2one(
         'pharmacy.product',

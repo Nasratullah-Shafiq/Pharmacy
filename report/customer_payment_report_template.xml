@@ -9,6 +9,7 @@
                         <h1 style="color:#4CAF50; font-size:26px; margin:0;">Customer Payment Report</h1>
                         <p style="font-size:14px; color:#555;">Detailed Record of Customer Payments and Sales</p>
                     </div>
+                    
 
                     <!-- Filters -->
                     <div style="margin-bottom:15px; font-size:14px; color:#333;">

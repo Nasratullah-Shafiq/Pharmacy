@@ -136,6 +136,7 @@ class PharmacyExpense(models.Model):
         # Fallback: first available cash account
         main_account = CashAccount.search([], limit=1)
 
+
         if not main_account:
             raise ValidationError("No main cash account found. Please create a main cash account first.")
 

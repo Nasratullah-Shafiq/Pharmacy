@@ -13,6 +13,7 @@
                     <!-- Report Date Range, Branch and Farm -->
                     <div style="margin-bottom:15px; font-size:14px; color:#333;">
                         <p>
+                        
                             <strong>From:</strong>
                             <span><t t-esc="o.start_date"/></span>
                             <span style="margin-left:20px;"> </span>

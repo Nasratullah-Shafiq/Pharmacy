@@ -31,6 +31,7 @@ class PharmacySale(models.Model):
         required=True,
         default=lambda self: self.env.ref('uom.product_uom_unit')
     )
+    
 
     currency_id = fields.Many2one(
         'res.currency',

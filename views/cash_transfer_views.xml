@@ -10,6 +10,7 @@
             </p>
         </field>
     </record>
+    
 
     <!-- Cash Transfer Menu -->
     <menuitem id="menu_cash_transfer"

@@ -17,9 +17,7 @@
 
 <!--                    &lt;!&ndash; Filters &ndash;&gt;-->
 <!--                    <div style="margin-bottom:20px; font-size:14px; color:#333;">-->
-<!--                        <p>-->
-<!--                            <strong>From:</strong> <t t-esc="o.start_date"/>-->
-<!--                            &#160;&#160;-->
+
 <!--                            <strong>To:</strong> <t t-esc="o.end_date"/>-->
 <!--                        </p>-->
 <!--                        <p>-->

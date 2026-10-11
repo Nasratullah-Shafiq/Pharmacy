@@ -11,6 +11,7 @@
             <field name="rounding">0.01</field>
         </record>
 
+
         <!-- Kaldar -->
         <record id="currency_kld" model="res.currency">
             <field name="name">Kaldar</field>

@@ -98,6 +98,7 @@ class PharmacyCashAccount(models.Model):
 
             vals['account_no'] = f"{cashier_code}{str(currency_order).zfill(3)}{currency_code}"
 
+
         return super().create(vals)
 
 # ==========================================

@@ -21,6 +21,7 @@
                         </p>
 
                         <p>
+                        
                             <strong>Supplier:</strong>
                             <t t-esc="o.supplier_id.name if o.supplier_id else 'All Suppliers'"/>
                         </p>
