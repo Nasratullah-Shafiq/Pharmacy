@@ -9,6 +9,7 @@
                         <span>Pharmacy Sale Report</span>
                     </h2>
 
+
                     <group>
                         <field name="start_date"/>
                         <field name="end_date"/>
