@@ -25,6 +25,7 @@
             <field name="email">rasheed@example.com</field>
         </record>
 
+
         <!-- Users -->
         <record id="user_sultan_manager" model="res.users">
             <field name="name">Sultan</field>
