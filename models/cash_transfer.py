@@ -26,6 +26,7 @@ class PharmacyCashTransfer(models.Model):
         related='from_account_id.currency_type',
         store=True
     )
+
     
 
     # Cashier responsible for the source account
