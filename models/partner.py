@@ -9,6 +9,7 @@ class PharmacyPartner(models.Model):
     _description = 'Partner (Customer/Supplier)'
 
     name = fields.Char(string="Name", required=True)
+    
     partner_type = fields.Selection([
         ('customer', 'Customer'),
         ('supplier', 'Supplier')
