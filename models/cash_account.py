@@ -114,7 +114,9 @@ class PharmacyCashDeposit(models.Model):
     date = fields.Datetime(string="Deposit Date", default=fields.Datetime.now)
     user_id = fields.Many2one('res.users', string="Deposited By", default=lambda self: self.env.user)
 
+
     cashier_id = fields.Many2one('pharmacy.cashier', string="From Cashier")
+
 
     account_type = fields.Selection([
         ('main', 'Main Account'),
