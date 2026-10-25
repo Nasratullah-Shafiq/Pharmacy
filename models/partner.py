@@ -10,6 +10,7 @@ class PharmacyPartner(models.Model):
 
     name = fields.Char(string="Name", required=True)
     
+    
     partner_type = fields.Selection([
         ('customer', 'Customer'),
         ('supplier', 'Supplier')

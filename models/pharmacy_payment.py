@@ -12,8 +12,6 @@
 #     _inherit = ['mail.thread', 'mail.activity.mixin']
 #     _order = 'date desc'
 #
-
-#
 #     # CASH ACCOUNT
 
 from odoo import models, fields, api
