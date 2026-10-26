@@ -10,7 +10,6 @@ from odoo.exceptions import UserError
 #     ], string="Product Type", required=True, tracking=True, default='medicine')
 
 #     currency_id = fields.Many2one(
-
 #         'res.currency',
 #         string="Currency",
 #         default=lambda self: self.env.company.currency_id,
